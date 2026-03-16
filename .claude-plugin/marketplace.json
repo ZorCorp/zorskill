@@ -1,0 +1,45 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "zorskill",
+  "version": "1.0.0",
+  "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
+  "owner": {
+    "name": "ZorCorp",
+    "email": "info@zorcorp.dev"
+  },
+  "plugins": [
+    {
+      "name": "kf-claude",
+      "description": "KnowledgeFactory for Claude Code - AI-powered knowledge capture, Obsidian integration, and publishing with MCP tools",
+      "version": "1.0.0",
+      "author": {
+        "name": "ZorCorp",
+        "email": "info@zorcorp.dev"
+      },
+      "source": "./plugins/kf-claude",
+      "category": "knowledge-management"
+    },
+    {
+      "name": "kf-cli",
+      "description": "KnowledgeFactory CLI - Native CLI implementation, no Docker/MCP required",
+      "version": "0.1.0",
+      "author": {
+        "name": "ZorCorp",
+        "email": "info@zorcorp.dev"
+      },
+      "source": "./plugins/kf-cli",
+      "category": "knowledge-management"
+    },
+    {
+      "name": "flight",
+      "description": "AI flight search assistant via Trip.com deep URL integration",
+      "version": "1.0.0",
+      "author": {
+        "name": "laucw1213",
+        "email": ""
+      },
+      "source": "./plugins/flight",
+      "category": "productivity"
+    }
+  ]
+}
