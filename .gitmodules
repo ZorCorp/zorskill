@@ -1,9 +1,9 @@
 [submodule "plugins/kf-claude"]
 	path = plugins/kf-claude
-	url = https://github.com/ZorroCheng-MC/kf-claude.git
+	url = https://github.com/ZorCorp/kf-claude.git
 [submodule "plugins/kf-cli"]
 	path = plugins/kf-cli
-	url = https://github.com/ZorroCheng-MC/kf-cli.git
+	url = https://github.com/ZorCorp/kf-cli.git
 [submodule "plugins/flight"]
 	path = plugins/flight
-	url = https://github.com/laucw1213/flight-skill.git
+	url = https://github.com/ZorCorp/flight-skill.git

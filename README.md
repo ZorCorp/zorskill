@@ -8,9 +8,9 @@ zorskill consolidates ZorCorp's Claude Code plugins into a single installable ma
 
 | Plugin | Description | Source |
 |--------|-------------|--------|
-| `kf-claude` | KnowledgeFactory for Claude Code — Obsidian integration, AI capture, publishing (requires MCP/Docker) | [ZorroCheng-MC/kf-claude](https://github.com/ZorroCheng-MC/kf-claude) |
-| `kf-cli` | KnowledgeFactory CLI — same commands as kf-claude, no Docker/MCP required | [ZorroCheng-MC/kf-cli](https://github.com/ZorroCheng-MC/kf-cli) |
-| `flight` | AI flight search assistant via Trip.com | [laucw1213/flight-skill](https://github.com/laucw1213/flight-skill) |
+| `kf-claude` | KnowledgeFactory for Claude Code — Obsidian integration, AI capture, publishing (requires MCP/Docker) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
+| `kf-cli` | KnowledgeFactory CLI — same commands as kf-claude, no Docker/MCP required | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
+| `flight` | AI flight search assistant via Trip.com | [ZorCorp/flight-skill](https://github.com/ZorCorp/flight-skill) |
 
 ## Installation
 
@@ -78,9 +78,9 @@ zorskill/
 ├── .claude-plugin/
 │   └── marketplace.json    # Plugin registry
 ├── plugins/
-│   ├── kf-claude/          # git submodule → ZorroCheng-MC/kf-claude
-│   ├── kf-cli/             # git submodule → ZorroCheng-MC/kf-cli
-│   └── flight/             # git submodule → laucw1213/flight-skill
+│   ├── kf-claude/          # git submodule → ZorCorp/kf-claude
+│   ├── kf-cli/             # git submodule → ZorCorp/kf-cli
+│   └── flight/             # git submodule → ZorCorp/flight-skill
 └── README.md
 ```
 
