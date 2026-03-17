@@ -14,16 +14,49 @@ zorskill consolidates ZorCorp's Claude Code plugins into a single installable ma
 
 ## Installation
 
-```bash
-git clone --recurse-submodules https://github.com/ZorCorp/zorskill ~/.claude/plugins/marketplaces/zorskill
+### Step 1: Add the zorskill marketplace
+
+Inside Claude Code, run:
+
+```
+/plugin marketplace add ZorCorp/zorskill
 ```
 
-Then add to your Claude Code settings:
-```json
-{
-  "plugins": ["~/.claude/plugins/marketplaces/zorskill"]
-}
+This registers the zorskill marketplace and gives you access to all ZorCorp plugins.
+
+### Step 2: Install a plugin
+
+**Option A: Browse and install (recommended)**
+
 ```
+/plugin
+```
+
+Opens an interactive menu — browse available plugins, read descriptions, and install with one selection.
+
+**Option B: Install directly**
+
+```
+/plugin install kf-claude
+```
+
+or
+
+```
+/plugin install kf-cli
+```
+
+### Step 3: Verify installation
+
+```
+/plugin list
+```
+
+You should see your installed plugin(s) in the list.
+
+---
+
+> **Note for kf-claude users**: kf-claude requires Docker Desktop and the MCP Toolkit to be running. If you don't want Docker/MCP, install `kf-cli` instead — it has the same commands with no Docker dependency.
 
 ## Available Commands
 
