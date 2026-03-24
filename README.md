@@ -14,34 +14,9 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 
 ## Install
 
-### Option A — npm (recommended)
+### Option A — Claude Code (Plugin Marketplace)
 
-Installs all skills to `~/.agents/skills/` and auto-symlinks them into every agent it detects on your machine.
-
-```bash
-npm install -g @zorcorp/zorskills
-```
-
-Skills become available immediately in:
-- **Claude Code** — invoke as `/skill-name`
-- **OpenClaw** — agent picks up skills on next restart
-- **OpenCode** — skills installed to `~/.opencode/skills/`
-- **Gemini CLI** — extensions installed to `~/.gemini/extensions/`
-
-Only agents whose root directory exists on your machine are targeted — setup is safely skipped for agents you don't have installed.
-
-Update all skills at once:
-
-```bash
-npm update -g @zorcorp/zorskills
-```
-
-> **Note**: The npm package uses git submodules. Make sure they're checked out before publishing:
-> `git submodule update --init --recursive`
-
-### Option B — Claude Code Plugin Marketplace
-
-Best for auto-update notifications inside Claude Code.
+Best for Claude Code users — auto-update notifications included.
 
 ```
 /plugin marketplace add ZorCorp/zorskill
@@ -54,6 +29,51 @@ Update:
 ```
 /plugin update zorskill
 ```
+
+### Option B — npm (All Agents)
+
+Installs all skills to `~/.agents/skills/` and auto-symlinks into every agent detected on your machine (Claude Code, OpenClaw, OpenCode, Gemini CLI).
+
+```bash
+npm install -g @zorcorp/zorskills
+```
+
+Only agents whose root directory exists on your machine are targeted — setup is safely skipped for agents you don't have installed.
+
+Update all skills:
+
+```bash
+npm update -g @zorcorp/zorskills
+```
+
+### OpenClaw Install
+
+OpenClaw picks up skills from `~/.openclaw/skills/`. Use Option B (npm) for the easiest setup.
+
+**Manual install (git + script — works without npm):**
+
+```bash
+git clone --recurse-submodules https://github.com/ZorCorp/zorskill.git /tmp/zorskill
+cd /tmp/zorskill
+node scripts/setup.js
+```
+
+Restart OpenClaw after install — skills are loaded on agent startup.
+
+**Verify:**
+
+```bash
+ls ~/.openclaw/skills/
+# kf-cli   kf-claude   flight
+```
+
+**Tested commands:**
+
+| Command | Status |
+|---------|--------|
+| `/kf-cli:capture` | ✅ |
+| `/kf-cli:idea` | ✅ |
+| `/kf-cli:youtube-note` | ✅ |
 
 ---
 
