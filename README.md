@@ -1,93 +1,109 @@
 # zorskill
 
-**AI-powered skill marketplace for Claude Code by ZorCorp**
+ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, and any agent that follows the `~/.agents/skills/` convention.
 
-zorskill consolidates ZorCorp's Claude Code plugins into a single installable marketplace.
+## Skills
 
-## Plugins
-
-| Plugin | Description | Source |
-|--------|-------------|--------|
-| `kf-claude` | KnowledgeFactory for Claude Code — Obsidian integration, AI capture, publishing (requires MCP/Docker) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
-| `kf-cli` | KnowledgeFactory CLI — same commands as kf-claude, no Docker/MCP required | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
-| `flight` | AI flight search assistant via Trip.com | [ZorCorp/flight-skill](https://github.com/ZorCorp/flight-skill) |
-
-## Installation
-
-### Step 1: Add the zorskill marketplace
-
-Inside Claude Code, run:
-
-```
-/plugin marketplace add ZorCorp/zorskill
-```
-
-This registers the zorskill marketplace and gives you access to all ZorCorp plugins.
-
-### Step 2: Install a plugin
-
-**Option A: Browse and install (recommended)**
-
-```
-/plugin
-```
-
-Opens an interactive menu — browse available plugins, read descriptions, and install with one selection.
-
-**Option B: Install directly**
-
-```
-/plugin install kf-claude
-```
-
-or
-
-```
-/plugin install kf-cli
-```
-
-### Step 3: Verify installation
-
-```
-/plugin list
-```
-
-You should see your installed plugin(s) in the list.
+| Skill | Description | Source |
+|-------|-------------|--------|
+| `flight` | AI flight search via Trip.com (supports HK locale) | [ZorCorp/flight-skill](https://github.com/ZorCorp/flight-skill) |
+| `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
+| `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
 
 ---
 
-> **Note for kf-claude users**: kf-claude requires Docker Desktop and the MCP Toolkit to be running. If you don't want Docker/MCP, install `kf-cli` instead — it has the same commands with no Docker dependency.
+## Install
 
-## Available Commands
+### Option A — npm (recommended)
 
-After installation, all plugin commands are namespaced:
+Installs all skills to `~/.agents/skills/` and auto-symlinks them into every agent it detects on your machine.
 
-**kf-claude** (requires MCP Docker):
-- `/kf-claude:capture`, `/kf-claude:youtube-note`, `/kf-claude:idea`, `/kf-claude:publish`, `/kf-claude:article`, `/kf-claude:study-guide`
+```bash
+npm install -g @zorcorp/zorskills
+```
 
-**kf-cli** (no Docker needed):
-- `/kf-cli:capture`, `/kf-cli:youtube-note`, `/kf-cli:idea`, `/kf-cli:publish`, `/kf-cli:article`, `/kf-cli:study-guide`
+Skills become available immediately in:
+- **Claude Code** — invoke as `/skill-name`
+- **OpenClaw** — agent picks up skills on next restart
 
-**flight**:
-- `/flight:flight` — Search flights via Trip.com
+Update all skills at once:
+
+```bash
+npm update -g @zorcorp/zorskills
+```
+
+> **Note**: The npm package uses git submodules. Make sure they're checked out before publishing:
+> `git submodule update --init --recursive`
+
+### Option B — Claude Code Plugin Marketplace
+
+Best for auto-update notifications inside Claude Code.
+
+```
+/plugin marketplace add ZorCorp/zorskill
+/plugin install kf-cli
+/plugin install flight
+```
+
+Update:
+
+```
+/plugin update zorskill
+```
+
+---
+
+## How It Works
+
+```
+npm install -g @zorcorp/zorskills
+         │
+         └─ scripts/setup.js runs automatically
+                  │
+                  ├─ ~/.agents/skills/flight    ← canonical location
+                  ├─ ~/.agents/skills/kf-cli
+                  │
+                  ├─ ~/.claude/skills/flight    → ../../.agents/skills/flight
+                  ├─ ~/.claude/skills/kf-cli    → ../../.agents/skills/kf-cli
+                  │
+                  ├─ ~/.openclaw/skills/flight  → ../../.agents/skills/flight
+                  └─ ~/.openclaw/skills/kf-cli  → ../../.agents/skills/kf-cli
+```
+
+`~/.agents/skills/` is the single source of truth. Each agent gets a symlink — no duplicated files, single update point.
+
+---
+
+## Adding a New Skill
+
+Each skill is a git submodule under `plugins/`:
+
+```bash
+git submodule add https://github.com/ZorCorp/my-new-skill.git plugins/my-new-skill
+git add .gitmodules plugins/my-new-skill
+git commit -m "feat: add my-new-skill"
+```
+
+Skill requirements:
+- `SKILL.md` with `name:` frontmatter
+- `commands/` directory with one `.md` per command
+
+---
 
 ## Structure
 
 ```
 zorskill/
-├── .claude-plugin/
-│   └── marketplace.json    # Plugin registry
+├── package.json                 # npm: @zorcorp/zorskills
+├── scripts/
+│   └── setup.js                 # post-install symlink creator
 ├── plugins/
-│   ├── kf-claude/          # git submodule → ZorCorp/kf-claude
-│   ├── kf-cli/             # git submodule → ZorCorp/kf-cli
-│   └── flight/             # git submodule → ZorCorp/flight-skill
+│   ├── flight/                  # submodule → ZorCorp/flight-skill
+│   ├── kf-cli/                  # submodule → ZorCorp/kf-cli
+│   └── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
 └── README.md
 ```
 
-## Contributing
-
-ZorCorp welcomes third-party plugin contributions. Open an issue to discuss adding your plugin to the marketplace.
-
 ---
 
-**ZorCorp** · [github.com/ZorCorp](https://github.com/ZorCorp) · info@zorcorp.dev
+**ZorCorp** · [github.com/ZorCorp](https://github.com/ZorCorp)

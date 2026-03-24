@@ -1,0 +1,33 @@
+{
+  "name": "@zorcorp/zorskills",
+  "version": "0.1.0",
+  "description": "ZorCorp AI skill collection for Claude Code and multi-agent systems",
+  "bin": {
+    "zorskills": "./scripts/setup.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/setup.js",
+    "prepublishOnly": "git submodule update --init --recursive && node -e \"const fs=require('fs'),p='plugins';const dirs=fs.readdirSync(p).filter(d=>fs.statSync(p+'/'+d).isDirectory());if(!dirs.length){console.error('plugins/ empty — submodules not checked out');process.exit(1);}console.log('plugins ready:',dirs.join(', '));\""
+  },
+  "files": [
+    "plugins/",
+    "scripts/",
+    "README.md"
+  ],
+  "keywords": [
+    "claude-code",
+    "ai-skills",
+    "openclaw",
+    "agents",
+    "zorcorp"
+  ],
+  "author": "ZorCorp",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZorCorp/zorskill.git"
+  }
+}
