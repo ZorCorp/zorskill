@@ -2,7 +2,7 @@
 /**
  * zorskills setup
  * Installs ZorCorp skills to ~/.agents/skills/ and symlinks them into each
- * detected agent (Claude Code, OpenClaw).
+ * detected agent (Claude Code, OpenClaw, OpenCode, Gemini CLI).
  *
  * Runs automatically on: npm install -g @zorcorp/zorskills
  * Run manually:          node scripts/setup.js
@@ -16,10 +16,14 @@ const HOME = os.homedir();
 const AGENTS_SKILLS = path.join(HOME, '.agents', 'skills');
 const PLUGINS_DIR = path.join(__dirname, '..', 'plugins');
 
-// Agent skill directories to symlink into (only if agent root exists)
+// Agent skill directories to symlink into (only if agent root exists).
+// Key = agent name (used to check ~/.{agentName} root exists).
+// Value = the skills/extensions directory to symlink into.
 const AGENT_DIRS = {
-  'claude':   path.join(HOME, '.claude', 'skills'),
+  'claude':   path.join(HOME, '.claude',   'skills'),
   'openclaw': path.join(HOME, '.openclaw', 'skills'),
+  'opencode': path.join(HOME, '.opencode', 'skills'),
+  'gemini':   path.join(HOME, '.gemini',   'extensions'),
 };
 
 function ensureDir(dir) {
@@ -89,12 +93,15 @@ for (const plugin of plugins) {
     const linkPath = path.join(agentSkillsDir, plugin);
     const relTarget = path.relative(agentSkillsDir, agentsTarget);
 
-    if (ensureSymlink(relTarget, linkPath, `~/.${agentName}/skills/${plugin}`)) {
-      console.log(`  → ${agentName}: ~/.${agentName}/skills/${plugin}`);
+    const displayDir = agentSkillsDir.replace(HOME, '~');
+    if (ensureSymlink(relTarget, linkPath, `${displayDir}/${plugin}`)) {
+      console.log(`  → ${agentName}: ${displayDir}/${plugin}`);
     }
   }
 }
 
 console.log('\nzorskills setup complete.');
 console.log('Claude Code: invoke skills as /skill-name');
-console.log('OpenClaw: restart agent to pick up new skills\n');
+console.log('OpenClaw:    restart agent to pick up new skills');
+console.log('OpenCode:    skills available in ~/.opencode/skills/');
+console.log('Gemini CLI:  extensions available in ~/.gemini/extensions/\n');

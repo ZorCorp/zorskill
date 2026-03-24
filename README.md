@@ -1,6 +1,6 @@
 # zorskill
 
-ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, and any agent that follows the `~/.agents/skills/` convention.
+ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **OpenCode**, **Gemini CLI**, and any agent that follows the `~/.agents/skills/` convention.
 
 ## Skills
 
@@ -25,6 +25,10 @@ npm install -g @zorcorp/zorskills
 Skills become available immediately in:
 - **Claude Code** — invoke as `/skill-name`
 - **OpenClaw** — agent picks up skills on next restart
+- **OpenCode** — skills installed to `~/.opencode/skills/`
+- **Gemini CLI** — extensions installed to `~/.gemini/extensions/`
+
+Only agents whose root directory exists on your machine are targeted — setup is safely skipped for agents you don't have installed.
 
 Update all skills at once:
 
@@ -60,14 +64,20 @@ npm install -g @zorcorp/zorskills
          │
          └─ scripts/setup.js runs automatically
                   │
-                  ├─ ~/.agents/skills/flight    ← canonical location
+                  ├─ ~/.agents/skills/flight         ← canonical location
                   ├─ ~/.agents/skills/kf-cli
                   │
-                  ├─ ~/.claude/skills/flight    → ../../.agents/skills/flight
-                  ├─ ~/.claude/skills/kf-cli    → ../../.agents/skills/kf-cli
+                  ├─ ~/.claude/skills/flight         → ../../.agents/skills/flight
+                  ├─ ~/.claude/skills/kf-cli         → ../../.agents/skills/kf-cli
                   │
-                  ├─ ~/.openclaw/skills/flight  → ../../.agents/skills/flight
-                  └─ ~/.openclaw/skills/kf-cli  → ../../.agents/skills/kf-cli
+                  ├─ ~/.openclaw/skills/flight       → ../../.agents/skills/flight
+                  ├─ ~/.openclaw/skills/kf-cli       → ../../.agents/skills/kf-cli
+                  │
+                  ├─ ~/.opencode/skills/flight       → ../../.agents/skills/flight
+                  ├─ ~/.opencode/skills/kf-cli       → ../../.agents/skills/kf-cli
+                  │
+                  ├─ ~/.gemini/extensions/flight     → ../../.agents/skills/flight
+                  └─ ~/.gemini/extensions/kf-cli     → ../../.agents/skills/kf-cli
 ```
 
 `~/.agents/skills/` is the single source of truth. Each agent gets a symlink — no duplicated files, single update point.
