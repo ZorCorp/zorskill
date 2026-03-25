@@ -23,6 +23,7 @@ Best for Claude Code users — auto-update notifications included.
 /plugin marketplace add ZorCorp/zorskill
 /plugin install kf-cli
 /plugin install flight
+/plugin install sourcecode-to-video
 ```
 
 Update:
@@ -65,7 +66,7 @@ Restart OpenClaw after install — skills are loaded on agent startup.
 
 ```bash
 ls ~/.openclaw/skills/
-# kf-cli   kf-claude   flight
+# kf-cli   kf-claude   flight   sourcecode-to-video
 ```
 
 **Tested commands:**
@@ -85,20 +86,25 @@ npm install -g @zorcorp/zorskills
          │
          └─ scripts/setup.js runs automatically
                   │
-                  ├─ ~/.agents/skills/flight         ← canonical location
+                  ├─ ~/.agents/skills/flight                  ← canonical location
                   ├─ ~/.agents/skills/kf-cli
+                  ├─ ~/.agents/skills/sourcecode-to-video
                   │
-                  ├─ ~/.claude/skills/flight         → ../../.agents/skills/flight
-                  ├─ ~/.claude/skills/kf-cli         → ../../.agents/skills/kf-cli
+                  ├─ ~/.claude/skills/flight                  → ../../.agents/skills/flight
+                  ├─ ~/.claude/skills/kf-cli                  → ../../.agents/skills/kf-cli
+                  ├─ ~/.claude/skills/sourcecode-to-video     → ../../.agents/skills/sourcecode-to-video
                   │
-                  ├─ ~/.openclaw/skills/flight       → ../../.agents/skills/flight
-                  ├─ ~/.openclaw/skills/kf-cli       → ../../.agents/skills/kf-cli
+                  ├─ ~/.openclaw/skills/flight                → ../../.agents/skills/flight
+                  ├─ ~/.openclaw/skills/kf-cli                → ../../.agents/skills/kf-cli
+                  ├─ ~/.openclaw/skills/sourcecode-to-video   → ../../.agents/skills/sourcecode-to-video
                   │
-                  ├─ ~/.opencode/skills/flight       → ../../.agents/skills/flight
-                  ├─ ~/.opencode/skills/kf-cli       → ../../.agents/skills/kf-cli
+                  ├─ ~/.opencode/skills/flight                → ../../.agents/skills/flight
+                  ├─ ~/.opencode/skills/kf-cli                → ../../.agents/skills/kf-cli
+                  ├─ ~/.opencode/skills/sourcecode-to-video   → ../../.agents/skills/sourcecode-to-video
                   │
-                  ├─ ~/.gemini/extensions/flight     → ../../.agents/skills/flight
-                  └─ ~/.gemini/extensions/kf-cli     → ../../.agents/skills/kf-cli
+                  ├─ ~/.gemini/extensions/flight              → ../../.agents/skills/flight
+                  ├─ ~/.gemini/extensions/kf-cli              → ../../.agents/skills/kf-cli
+                  └─ ~/.gemini/extensions/sourcecode-to-video → ../../.agents/skills/sourcecode-to-video
 ```
 
 `~/.agents/skills/` is the single source of truth. Each agent gets a symlink — no duplicated files, single update point.
@@ -117,7 +123,7 @@ git commit -m "feat: add my-new-skill"
 
 Skill requirements:
 - `SKILL.md` with `name:` frontmatter
-- `commands/` directory with one `.md` per command
+- Either `commands/` directory (one `.md` per command) **or** `skills/<skill-name>/` layout with a `SKILL.md` inside
 
 ---
 
