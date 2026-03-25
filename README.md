@@ -113,17 +113,204 @@ npm install -g @zorcorp/zorskills
 
 ## Adding a New Skill
 
-Each skill is a git submodule under `plugins/`:
+> **For AI agents**: Follow every step in order. Do not skip any step. Each step includes verification so you can confirm success before moving on.
+
+### Prerequisites
+
+- `gh` CLI authenticated (`gh auth status`)
+- Git configured with push access to `ZorCorp` org
+- Local vault cloned at `~/Documents/Obsidian/Claudecode` (the Obsidian vault repo)
+- A working clone of `ZorCorp/zorskill` (or use `/tmp/zorskill-update` if already cloned)
+
+---
+
+### Step 1 — Fork or create the skill repo under ZorCorp
+
+**If the skill already exists as a public repo** (e.g. `CYH928/my-skill`):
 
 ```bash
-git submodule add https://github.com/ZorCorp/my-new-skill.git plugins/my-new-skill
-git add .gitmodules plugins/my-new-skill
-git commit -m "feat: add my-new-skill"
+gh api repos/CYH928/my-skill/forks -X POST -f organization=ZorCorp
 ```
 
-Skill requirements:
-- `SKILL.md` with `name:` frontmatter
-- Either `commands/` directory (one `.md` per command) **or** `skills/<skill-name>/` layout with a `SKILL.md` inside
+Wait a few seconds, then verify:
+
+```bash
+gh api repos/ZorCorp/my-skill --jq '.full_name'
+# Expected: ZorCorp/my-skill
+```
+
+**If you are creating a new skill from scratch**, create the repo under ZorCorp:
+
+```bash
+gh api orgs/ZorCorp/repos -X POST -f name=my-skill -f description="Short description" -f private=false
+```
+
+Then push your skill code to it.
+
+---
+
+### Step 2 — Add the skill as a submodule in the local vault
+
+The vault (`~/Documents/Obsidian/Claudecode`) tracks all skill source repos as git submodules under `zorcorp/zorskill/`.
+
+```bash
+cd ~/Documents/Obsidian/Claudecode
+git submodule add https://github.com/ZorCorp/my-skill.git zorcorp/zorskill/my-skill
+```
+
+Verify the submodule cloned:
+
+```bash
+ls zorcorp/zorskill/my-skill/
+# Should show the skill's files (SKILL.md, commands/, etc.)
+```
+
+Commit the vault change:
+
+```bash
+git add .gitmodules zorcorp/zorskill/my-skill
+git commit -m "chore: add my-skill as zorskill submodule
+
+Co-Authored-By: Paperclip <noreply@paperclip.ing>"
+```
+
+---
+
+### Step 3 — Add the skill as a submodule in ZorCorp/zorskill
+
+Clone the zorskill marketplace repo if you don't have a local copy:
+
+```bash
+git clone https://github.com/ZorCorp/zorskill.git /tmp/zorskill-update
+```
+
+Or if already cloned, pull latest:
+
+```bash
+cd /tmp/zorskill-update && git pull origin main
+```
+
+Add the submodule:
+
+```bash
+cd /tmp/zorskill-update
+git submodule add https://github.com/ZorCorp/my-skill.git plugins/my-skill
+```
+
+Verify:
+
+```bash
+ls plugins/my-skill/
+cat .gitmodules | grep my-skill
+```
+
+---
+
+### Step 4 — Register the skill in marketplace.json
+
+Edit `.claude-plugin/marketplace.json` and add a new entry to the `plugins` array:
+
+```json
+{
+  "name": "my-skill",
+  "description": "One-line description of what the skill does.",
+  "version": "1.0.0",
+  "author": {
+    "name": "AuthorName",
+    "url": "https://github.com/AuthorName"
+  },
+  "source": "./plugins/my-skill",
+  "category": "productivity"
+}
+```
+
+Valid `category` values: `knowledge-management`, `productivity`.
+
+---
+
+### Step 5 — Update README.md (all sections)
+
+Update **every** section of the README that lists skills. Do not add only one entry — check all locations:
+
+| Section | What to update |
+|---------|---------------|
+| **Skills table** | Add a new row: skill name, description, link to `ZorCorp/my-skill` |
+| **Option A install** | Add `/plugin install my-skill` |
+| **OpenClaw verify** | Add `my-skill` to the `ls ~/.openclaw/skills/` comment |
+| **How It Works diagram** | Add `~/.agents/skills/my-skill`, `~/.claude/skills/my-skill`, `~/.openclaw/skills/my-skill`, `~/.opencode/skills/my-skill`, `~/.gemini/extensions/my-skill` |
+| **Structure diagram** | Add `│   └── my-skill/  # submodule → ZorCorp/my-skill` |
+
+---
+
+### Step 6 — Commit and push ZorCorp/zorskill
+
+```bash
+cd /tmp/zorskill-update
+git add .gitmodules plugins/my-skill .claude-plugin/marketplace.json README.md
+git commit -m "feat: add my-skill
+
+- Forked from <original-repo> (or: new skill)
+- Added as git submodule at plugins/my-skill
+- Registered in marketplace.json
+- Updated README across all sections
+
+Co-Authored-By: Paperclip <noreply@paperclip.ing>"
+
+git push origin main
+```
+
+Verify on GitHub: `https://github.com/ZorCorp/zorskill` — confirm the new skill appears in the README Skills table and the `plugins/` folder.
+
+---
+
+### Step 7 — Verify the full setup
+
+```bash
+# 1. Vault submodule registered
+cat ~/Documents/Obsidian/Claudecode/.gitmodules | grep my-skill
+
+# 2. zorskill marketplace submodule registered
+cat /tmp/zorskill-update/.gitmodules | grep my-skill
+
+# 3. marketplace.json has the entry
+cat /tmp/zorskill-update/.claude-plugin/marketplace.json | grep my-skill
+
+# 4. README Skills table has the entry
+grep my-skill /tmp/zorskill-update/README.md
+```
+
+All four checks should return matches.
+
+---
+
+### Skill file requirements
+
+A valid zorskill plugin must have one of these layouts:
+
+**Layout A — `commands/` style** (most skills):
+```
+my-skill/
+├── SKILL.md          # name: frontmatter required
+└── commands/
+    └── my-skill.md   # one .md per slash command
+```
+
+**Layout B — `skills/` style** (e.g. sourcecode-to-video):
+```
+my-skill/
+└── skills/
+    └── my-skill/
+        ├── SKILL.md
+        └── sub-skills/
+```
+
+`SKILL.md` must include at minimum:
+```yaml
+---
+name: my-skill
+description: What the skill does.
+---
+```
 
 ---
 
