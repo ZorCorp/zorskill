@@ -7,3 +7,6 @@
 [submodule "plugins/flight"]
 	path = plugins/flight
 	url = https://github.com/ZorCorp/flight-skill.git
+[submodule "plugins/sourcecode-to-video"]
+	path = plugins/sourcecode-to-video
+	url = https://github.com/ZorCorp/sourcecode-to-video.git

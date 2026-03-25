@@ -40,6 +40,17 @@
       },
       "source": "./plugins/flight",
       "category": "productivity"
+    },
+    {
+      "name": "sourcecode-to-video",
+      "description": "Turn existing web source code into a shareable Google Drive demo video — analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CYH928",
+        "url": "https://github.com/CYH928"
+      },
+      "source": "./plugins/sourcecode-to-video",
+      "category": "productivity"
     }
   ]
 }
