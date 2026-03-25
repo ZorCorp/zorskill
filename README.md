@@ -120,7 +120,23 @@ npm install -g @zorcorp/zorskills
 
 ## Adding a New Skill
 
-> **For AI agents**: Follow every step in order. Do not skip any step. Each step includes verification so you can confirm success before moving on.
+> **For AI agents**: Read this entire section BEFORE writing any code or running any commands. Do not begin work until you have reviewed the full checklist below. Skipping steps is the most common failure mode — every step is required for the skill to be visible on the page.
+
+### Required Completion Checklist
+
+Before marking any task done, verify **all seven** of the following are complete:
+
+- [ ] **Step 1** — Skill repo exists under `ZorCorp` org on GitHub
+- [ ] **Step 2** — Skill added as submodule in the local vault (`zorcorp/zorskill/my-skill`)
+- [ ] **Step 3** — Skill added as submodule in `ZorCorp/zorskill` (`plugins/my-skill`)
+- [ ] **Step 4** — Entry added to `.claude-plugin/marketplace.json`
+- [ ] **Step 5** — README updated in **all five** locations (Skills table, Option A install, OpenClaw verify, How It Works diagram, Structure diagram)
+- [ ] **Step 6** — All changes committed and pushed to `ZorCorp/zorskill`
+- [ ] **Step 7** — All four verification commands return matches
+
+**The skill will NOT appear on the zorskill page until Steps 4 and 5 are done.** Adding the submodule alone (Steps 1–3) is necessary but not sufficient.
+
+---
 
 ### Prerequisites
 
