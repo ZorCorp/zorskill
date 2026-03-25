@@ -9,6 +9,7 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `flight` | AI flight search via Trip.com (supports HK locale) | [ZorCorp/flight-skill](https://github.com/ZorCorp/flight-skill) |
 | `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
 | `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
+| `sourcecode-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/sourcecode-to-video](https://github.com/ZorCorp/sourcecode-to-video) |
 
 ---
 
@@ -130,7 +131,8 @@ zorskill/
 ├── plugins/
 │   ├── flight/                  # submodule → ZorCorp/flight-skill
 │   ├── kf-cli/                  # submodule → ZorCorp/kf-cli
-│   └── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
+│   ├── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
+│   └── sourcecode-to-video/     # submodule → ZorCorp/sourcecode-to-video
 └── README.md
 ```
 
