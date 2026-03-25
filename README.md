@@ -10,6 +10,7 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
 | `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
 | `sourcecode-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/sourcecode-to-video](https://github.com/ZorCorp/sourcecode-to-video) |
+| `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
 
 ---
 
@@ -24,6 +25,7 @@ Best for Claude Code users — auto-update notifications included.
 /plugin install kf-cli
 /plugin install flight
 /plugin install sourcecode-to-video
+/plugin install yellow-restaurant
 ```
 
 Update:
@@ -66,7 +68,7 @@ Restart OpenClaw after install — skills are loaded on agent startup.
 
 ```bash
 ls ~/.openclaw/skills/
-# kf-cli   kf-claude   flight   sourcecode-to-video
+# kf-cli   kf-claude   flight   sourcecode-to-video   yellow-restaurant
 ```
 
 **Tested commands:**
@@ -89,22 +91,27 @@ npm install -g @zorcorp/zorskills
                   ├─ ~/.agents/skills/flight                  ← canonical location
                   ├─ ~/.agents/skills/kf-cli
                   ├─ ~/.agents/skills/sourcecode-to-video
+                  ├─ ~/.agents/skills/yellow-restaurant
                   │
                   ├─ ~/.claude/skills/flight                  → ../../.agents/skills/flight
                   ├─ ~/.claude/skills/kf-cli                  → ../../.agents/skills/kf-cli
                   ├─ ~/.claude/skills/sourcecode-to-video     → ../../.agents/skills/sourcecode-to-video
+                  ├─ ~/.claude/skills/yellow-restaurant       → ../../.agents/skills/yellow-restaurant
                   │
                   ├─ ~/.openclaw/skills/flight                → ../../.agents/skills/flight
                   ├─ ~/.openclaw/skills/kf-cli                → ../../.agents/skills/kf-cli
                   ├─ ~/.openclaw/skills/sourcecode-to-video   → ../../.agents/skills/sourcecode-to-video
+                  ├─ ~/.openclaw/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
                   │
                   ├─ ~/.opencode/skills/flight                → ../../.agents/skills/flight
                   ├─ ~/.opencode/skills/kf-cli                → ../../.agents/skills/kf-cli
                   ├─ ~/.opencode/skills/sourcecode-to-video   → ../../.agents/skills/sourcecode-to-video
+                  ├─ ~/.opencode/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
                   │
                   ├─ ~/.gemini/extensions/flight              → ../../.agents/skills/flight
                   ├─ ~/.gemini/extensions/kf-cli              → ../../.agents/skills/kf-cli
-                  └─ ~/.gemini/extensions/sourcecode-to-video → ../../.agents/skills/sourcecode-to-video
+                  ├─ ~/.gemini/extensions/sourcecode-to-video → ../../.agents/skills/sourcecode-to-video
+                  └─ ~/.gemini/extensions/yellow-restaurant   → ../../.agents/skills/yellow-restaurant
 ```
 
 `~/.agents/skills/` is the single source of truth. Each agent gets a symlink — no duplicated files, single update point.
@@ -325,7 +332,8 @@ zorskill/
 │   ├── flight/                  # submodule → ZorCorp/flight-skill
 │   ├── kf-cli/                  # submodule → ZorCorp/kf-cli
 │   ├── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
-│   └── sourcecode-to-video/     # submodule → ZorCorp/sourcecode-to-video
+│   ├── sourcecode-to-video/     # submodule → ZorCorp/sourcecode-to-video
+│   └── yellow-restaurant/       # submodule → ZorCorp/yellow-restaurant
 └── README.md
 ```
 

@@ -51,6 +51,17 @@
       },
       "source": "./plugins/sourcecode-to-video",
       "category": "productivity"
+    },
+    {
+      "name": "yellow-restaurant",
+      "description": "Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API using GPS coordinates.",
+      "version": "1.0.0",
+      "author": {
+        "name": "ZorCorp",
+        "url": "https://github.com/ZorCorp"
+      },
+      "source": "./plugins/yellow-restaurant",
+      "category": "productivity"
     }
   ]
 }
