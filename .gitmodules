@@ -12,7 +12,7 @@
 	url = https://github.com/ZorCorp/yellow-restaurant.git
 [submodule "plugins/code-to-video"]
 	path = plugins/code-to-video
-	url = https://github.com/ZorCorp/codetovideo-plugin.git
+	url = https://github.com/ZorCorp/code-to-video.git
 [submodule "plugins/prototyper"]
 	path = plugins/prototyper
-	url = https://github.com/ZorCorp/prototyper-plugin.git
+	url = https://github.com/ZorCorp/prototyper.git
