@@ -57,7 +57,7 @@ Only agents whose root directory exists on your machine are targeted — setup i
 | `flight` | included in `@zorcorp/zorskills` bundle only |
 | `code-to-video` | included in `@zorcorp/zorskills` bundle only |
 | `yellow-restaurant` | included in `@zorcorp/zorskills` bundle only |
-| `prototyper` | `npm install -g @cyh928/prototyper` |
+| `prototyper` | included in `@zorcorp/zorskills` bundle only |
 
 Update all skills:
 
