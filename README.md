@@ -9,7 +9,7 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `flight` | AI flight search via Trip.com (supports HK locale) | [ZorCorp/flight-skill](https://github.com/ZorCorp/flight-skill) |
 | `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
 | `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
-| `code-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [CYH928/codetovideo-plugin](https://github.com/CYH928/codetovideo-plugin) |
+| `code-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/codetovideo-plugin](https://github.com/ZorCorp/codetovideo-plugin) |
 | `prototyper` | Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations — includes a built-in HKUST Store Virtual Try-On demo | [CYH928/prototyper-plugin](https://github.com/CYH928/prototyper-plugin) |
 | `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
 
