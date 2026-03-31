@@ -7,9 +7,12 @@
 [submodule "plugins/flight"]
 	path = plugins/flight
 	url = https://github.com/ZorCorp/flight-skill.git
-[submodule "plugins/sourcecode-to-video"]
-	path = plugins/sourcecode-to-video
-	url = https://github.com/ZorCorp/sourcecode-to-video.git
 [submodule "plugins/yellow-restaurant"]
 	path = plugins/yellow-restaurant
 	url = https://github.com/ZorCorp/yellow-restaurant.git
+[submodule "plugins/code-to-video"]
+	path = plugins/code-to-video
+	url = https://github.com/CYH928/codetovideo-plugin
+[submodule "plugins/prototyper"]
+	path = plugins/prototyper
+	url = https://github.com/CYH928/prototyper-plugin

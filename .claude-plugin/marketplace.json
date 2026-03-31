@@ -42,14 +42,25 @@
       "category": "productivity"
     },
     {
-      "name": "sourcecode-to-video",
+      "name": "code-to-video",
       "description": "Turn existing web source code into a shareable Google Drive demo video — analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
       "version": "1.0.0",
       "author": {
         "name": "CYH928",
         "url": "https://github.com/CYH928"
       },
-      "source": "./plugins/sourcecode-to-video",
+      "source": "./plugins/code-to-video",
+      "category": "productivity"
+    },
+    {
+      "name": "prototyper",
+      "description": "Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations. Includes a built-in HKUST Store Virtual Try-On demo.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CYH928",
+        "url": "https://github.com/CYH928"
+      },
+      "source": "./plugins/prototyper",
       "category": "productivity"
     },
     {
