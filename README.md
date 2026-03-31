@@ -9,7 +9,8 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `flight` | AI flight search via Trip.com (supports HK locale) | [ZorCorp/flight-skill](https://github.com/ZorCorp/flight-skill) |
 | `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
 | `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
-| `sourcecode-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/sourcecode-to-video](https://github.com/ZorCorp/sourcecode-to-video) |
+| `code-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [CYH928/codetovideo-plugin](https://github.com/CYH928/codetovideo-plugin) |
+| `prototyper` | Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations — includes a built-in HKUST Store Virtual Try-On demo | [CYH928/prototyper-plugin](https://github.com/CYH928/prototyper-plugin) |
 | `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
 
 ---
@@ -24,8 +25,9 @@ Best for Claude Code users — auto-update notifications included.
 /plugin marketplace add ZorCorp/zorskill
 /plugin install kf-cli
 /plugin install flight
-/plugin install sourcecode-to-video
+/plugin install code-to-video
 /plugin install yellow-restaurant
+/plugin install prototyper
 ```
 
 Update:
@@ -68,7 +70,7 @@ Restart OpenClaw after install — skills are loaded on agent startup.
 
 ```bash
 ls ~/.openclaw/skills/
-# kf-cli   kf-claude   flight   sourcecode-to-video   yellow-restaurant
+# kf-cli   kf-claude   flight   code-to-video   yellow-restaurant   prototyper
 ```
 
 **Tested commands:**
@@ -90,28 +92,33 @@ npm install -g @zorcorp/zorskills
                   │
                   ├─ ~/.agents/skills/flight                  ← canonical location
                   ├─ ~/.agents/skills/kf-cli
-                  ├─ ~/.agents/skills/sourcecode-to-video
+                  ├─ ~/.agents/skills/code-to-video
                   ├─ ~/.agents/skills/yellow-restaurant
+                  ├─ ~/.agents/skills/prototyper
                   │
                   ├─ ~/.claude/skills/flight                  → ../../.agents/skills/flight
                   ├─ ~/.claude/skills/kf-cli                  → ../../.agents/skills/kf-cli
-                  ├─ ~/.claude/skills/sourcecode-to-video     → ../../.agents/skills/sourcecode-to-video
+                  ├─ ~/.claude/skills/code-to-video           → ../../.agents/skills/code-to-video
                   ├─ ~/.claude/skills/yellow-restaurant       → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.claude/skills/prototyper              → ../../.agents/skills/prototyper
                   │
                   ├─ ~/.openclaw/skills/flight                → ../../.agents/skills/flight
                   ├─ ~/.openclaw/skills/kf-cli                → ../../.agents/skills/kf-cli
-                  ├─ ~/.openclaw/skills/sourcecode-to-video   → ../../.agents/skills/sourcecode-to-video
+                  ├─ ~/.openclaw/skills/code-to-video         → ../../.agents/skills/code-to-video
                   ├─ ~/.openclaw/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.openclaw/skills/prototyper            → ../../.agents/skills/prototyper
                   │
                   ├─ ~/.opencode/skills/flight                → ../../.agents/skills/flight
                   ├─ ~/.opencode/skills/kf-cli                → ../../.agents/skills/kf-cli
-                  ├─ ~/.opencode/skills/sourcecode-to-video   → ../../.agents/skills/sourcecode-to-video
+                  ├─ ~/.opencode/skills/code-to-video         → ../../.agents/skills/code-to-video
                   ├─ ~/.opencode/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.opencode/skills/prototyper            → ../../.agents/skills/prototyper
                   │
                   ├─ ~/.gemini/extensions/flight              → ../../.agents/skills/flight
                   ├─ ~/.gemini/extensions/kf-cli              → ../../.agents/skills/kf-cli
-                  ├─ ~/.gemini/extensions/sourcecode-to-video → ../../.agents/skills/sourcecode-to-video
-                  └─ ~/.gemini/extensions/yellow-restaurant   → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.gemini/extensions/code-to-video       → ../../.agents/skills/code-to-video
+                  ├─ ~/.gemini/extensions/yellow-restaurant   → ../../.agents/skills/yellow-restaurant
+                  └─ ~/.gemini/extensions/prototyper          → ../../.agents/skills/prototyper
 ```
 
 `~/.agents/skills/` is the single source of truth. Each agent gets a symlink — no duplicated files, single update point.
@@ -348,8 +355,9 @@ zorskill/
 │   ├── flight/                  # submodule → ZorCorp/flight-skill
 │   ├── kf-cli/                  # submodule → ZorCorp/kf-cli
 │   ├── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
-│   ├── sourcecode-to-video/     # submodule → ZorCorp/sourcecode-to-video
-│   └── yellow-restaurant/       # submodule → ZorCorp/yellow-restaurant
+│   ├── code-to-video/           # submodule → CYH928/codetovideo-plugin
+│   ├── yellow-restaurant/       # submodule → ZorCorp/yellow-restaurant
+│   └── prototyper/              # submodule → CYH928/prototyper-plugin
 └── README.md
 ```
 
