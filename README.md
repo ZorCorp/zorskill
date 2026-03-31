@@ -10,7 +10,7 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
 | `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
 | `code-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/codetovideo-plugin](https://github.com/ZorCorp/codetovideo-plugin) |
-| `prototyper` | Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations — includes a built-in HKUST Store Virtual Try-On demo | [CYH928/prototyper-plugin](https://github.com/CYH928/prototyper-plugin) |
+| `prototyper` | Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations — includes a built-in HKUST Store Virtual Try-On demo | [ZorCorp/prototyper-plugin](https://github.com/ZorCorp/prototyper-plugin) |
 | `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
 
 ---
@@ -40,11 +40,24 @@ Update:
 
 Installs all skills to `~/.agents/skills/` and auto-symlinks into every agent detected on your machine (Claude Code, OpenClaw, OpenCode, Gemini CLI).
 
+**Install all skills (recommended):**
+
 ```bash
 npm install -g @zorcorp/zorskills
 ```
 
 Only agents whose root directory exists on your machine are targeted — setup is safely skipped for agents you don't have installed.
+
+**Install individual skills:**
+
+| Skill | npm package |
+|-------|-------------|
+| `kf-cli` | included in `@zorcorp/zorskills` bundle only |
+| `kf-claude` | included in `@zorcorp/zorskills` bundle only |
+| `flight` | included in `@zorcorp/zorskills` bundle only |
+| `code-to-video` | included in `@zorcorp/zorskills` bundle only |
+| `yellow-restaurant` | included in `@zorcorp/zorskills` bundle only |
+| `prototyper` | `npm install -g @cyh928/prototyper` |
 
 Update all skills:
 
@@ -355,9 +368,9 @@ zorskill/
 │   ├── flight/                  # submodule → ZorCorp/flight-skill
 │   ├── kf-cli/                  # submodule → ZorCorp/kf-cli
 │   ├── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
-│   ├── code-to-video/           # submodule → CYH928/codetovideo-plugin
+│   ├── code-to-video/           # submodule → ZorCorp/codetovideo-plugin
 │   ├── yellow-restaurant/       # submodule → ZorCorp/yellow-restaurant
-│   └── prototyper/              # submodule → CYH928/prototyper-plugin
+│   └── prototyper/              # submodule → ZorCorp/prototyper-plugin
 └── README.md
 ```
 
