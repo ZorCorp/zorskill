@@ -4,9 +4,6 @@
 [submodule "plugins/kf-cli"]
 	path = plugins/kf-cli
 	url = https://github.com/ZorCorp/kf-cli.git
-[submodule "plugins/flight"]
-	path = plugins/flight
-	url = https://github.com/ZorCorp/flight-skill.git
 [submodule "plugins/yellow-restaurant"]
 	path = plugins/yellow-restaurant
 	url = https://github.com/ZorCorp/yellow-restaurant.git
@@ -16,3 +13,9 @@
 [submodule "plugins/prototyper"]
 	path = plugins/prototyper
 	url = https://github.com/ZorCorp/prototyper.git
+[submodule "plugins/cx-trip-pa"]
+	path = plugins/cx-trip-pa
+	url = https://github.com/ZorCorp/cx-trip-pa.git
+[submodule "plugins/oc-on-cf"]
+	path = plugins/oc-on-cf
+	url = https://github.com/ZorCorp/oc-on-cf.git

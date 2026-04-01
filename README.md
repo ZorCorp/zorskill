@@ -6,10 +6,11 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 
 | Skill | Description | Source |
 |-------|-------------|--------|
-| `flight` | AI flight search via Trip.com (supports HK locale) | [ZorCorp/flight-skill](https://github.com/ZorCorp/flight-skill) |
+| `cx-trip-pa` | Search and book flights on Trip.com with agent-browser via `/flight` | [ZorCorp/cx-trip-pa](https://github.com/ZorCorp/cx-trip-pa) |
 | `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
 | `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
 | `code-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/code-to-video](https://github.com/ZorCorp/code-to-video) |
+| `oc-on-cf` | Deploy OpenClaw on Cloudflare with `/deploy-openclaw` | [ZorCorp/oc-on-cf](https://github.com/ZorCorp/oc-on-cf) |
 | `prototyper` | Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations — includes a built-in HKUST Store Virtual Try-On demo | [ZorCorp/prototyper](https://github.com/ZorCorp/prototyper) |
 | `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
 
@@ -24,8 +25,10 @@ Best for Claude Code users — auto-update notifications included.
 ```
 /plugin marketplace add ZorCorp/zorskill
 /plugin install kf-cli
-/plugin install flight
+/plugin install kf-claude
+/plugin install cx-trip-pa
 /plugin install code-to-video
+/plugin install oc-on-cf
 /plugin install yellow-restaurant
 /plugin install prototyper
 ```
@@ -54,8 +57,9 @@ Only agents whose root directory exists on your machine are targeted — setup i
 |-------|-------------|
 | `kf-cli` | included in `@zorcorp/zorskills` bundle only |
 | `kf-claude` | included in `@zorcorp/zorskills` bundle only |
-| `flight` | included in `@zorcorp/zorskills` bundle only |
+| `cx-trip-pa` | included in `@zorcorp/zorskills` bundle only |
 | `code-to-video` | included in `@zorcorp/zorskills` bundle only |
+| `oc-on-cf` | included in `@zorcorp/zorskills` bundle only |
 | `yellow-restaurant` | included in `@zorcorp/zorskills` bundle only |
 | `prototyper` | included in `@zorcorp/zorskills` bundle only |
 
@@ -83,7 +87,7 @@ Restart OpenClaw after install — skills are loaded on agent startup.
 
 ```bash
 ls ~/.openclaw/skills/
-# kf-cli   kf-claude   flight   code-to-video   yellow-restaurant   prototyper
+# kf-cli   kf-claude   cx-trip-pa   code-to-video   oc-on-cf   yellow-restaurant   prototyper
 ```
 
 **Tested commands:**
@@ -103,33 +107,43 @@ npm install -g @zorcorp/zorskills
          │
          └─ scripts/setup.js runs automatically
                   │
-                  ├─ ~/.agents/skills/flight                  ← canonical location
+                  ├─ ~/.agents/skills/cx-trip-pa              ← canonical location
                   ├─ ~/.agents/skills/kf-cli
+                  ├─ ~/.agents/skills/kf-claude
                   ├─ ~/.agents/skills/code-to-video
+                  ├─ ~/.agents/skills/oc-on-cf
                   ├─ ~/.agents/skills/yellow-restaurant
                   ├─ ~/.agents/skills/prototyper
                   │
-                  ├─ ~/.claude/skills/flight                  → ../../.agents/skills/flight
+                  ├─ ~/.claude/skills/cx-trip-pa              → ../../.agents/skills/cx-trip-pa
                   ├─ ~/.claude/skills/kf-cli                  → ../../.agents/skills/kf-cli
+                  ├─ ~/.claude/skills/kf-claude               → ../../.agents/skills/kf-claude
                   ├─ ~/.claude/skills/code-to-video           → ../../.agents/skills/code-to-video
+                  ├─ ~/.claude/skills/oc-on-cf                → ../../.agents/skills/oc-on-cf
                   ├─ ~/.claude/skills/yellow-restaurant       → ../../.agents/skills/yellow-restaurant
                   ├─ ~/.claude/skills/prototyper              → ../../.agents/skills/prototyper
                   │
-                  ├─ ~/.openclaw/skills/flight                → ../../.agents/skills/flight
+                  ├─ ~/.openclaw/skills/cx-trip-pa            → ../../.agents/skills/cx-trip-pa
                   ├─ ~/.openclaw/skills/kf-cli                → ../../.agents/skills/kf-cli
+                  ├─ ~/.openclaw/skills/kf-claude             → ../../.agents/skills/kf-claude
                   ├─ ~/.openclaw/skills/code-to-video         → ../../.agents/skills/code-to-video
+                  ├─ ~/.openclaw/skills/oc-on-cf              → ../../.agents/skills/oc-on-cf
                   ├─ ~/.openclaw/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
                   ├─ ~/.openclaw/skills/prototyper            → ../../.agents/skills/prototyper
                   │
-                  ├─ ~/.opencode/skills/flight                → ../../.agents/skills/flight
+                  ├─ ~/.opencode/skills/cx-trip-pa            → ../../.agents/skills/cx-trip-pa
                   ├─ ~/.opencode/skills/kf-cli                → ../../.agents/skills/kf-cli
+                  ├─ ~/.opencode/skills/kf-claude             → ../../.agents/skills/kf-claude
                   ├─ ~/.opencode/skills/code-to-video         → ../../.agents/skills/code-to-video
+                  ├─ ~/.opencode/skills/oc-on-cf              → ../../.agents/skills/oc-on-cf
                   ├─ ~/.opencode/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
                   ├─ ~/.opencode/skills/prototyper            → ../../.agents/skills/prototyper
                   │
-                  ├─ ~/.gemini/extensions/flight              → ../../.agents/skills/flight
+                  ├─ ~/.gemini/extensions/cx-trip-pa          → ../../.agents/skills/cx-trip-pa
                   ├─ ~/.gemini/extensions/kf-cli              → ../../.agents/skills/kf-cli
+                  ├─ ~/.gemini/extensions/kf-claude           → ../../.agents/skills/kf-claude
                   ├─ ~/.gemini/extensions/code-to-video       → ../../.agents/skills/code-to-video
+                  ├─ ~/.gemini/extensions/oc-on-cf            → ../../.agents/skills/oc-on-cf
                   ├─ ~/.gemini/extensions/yellow-restaurant   → ../../.agents/skills/yellow-restaurant
                   └─ ~/.gemini/extensions/prototyper          → ../../.agents/skills/prototyper
 ```
@@ -365,10 +379,11 @@ zorskill/
 ├── scripts/
 │   └── setup.js                 # post-install symlink creator
 ├── plugins/
-│   ├── flight/                  # submodule → ZorCorp/flight-skill
+│   ├── cx-trip-pa/              # submodule → ZorCorp/cx-trip-pa
 │   ├── kf-cli/                  # submodule → ZorCorp/kf-cli
 │   ├── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
 │   ├── code-to-video/           # submodule → ZorCorp/code-to-video
+│   ├── oc-on-cf/                # submodule → ZorCorp/oc-on-cf
 │   ├── yellow-restaurant/       # submodule → ZorCorp/yellow-restaurant
 │   └── prototyper/              # submodule → ZorCorp/prototyper
 └── README.md

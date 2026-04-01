@@ -31,14 +31,14 @@
       "category": "knowledge-management"
     },
     {
-      "name": "flight",
-      "description": "AI flight search assistant via Trip.com deep URL integration",
+      "name": "cx-trip-pa",
+      "description": "Search and book flights on Trip.com with agent-browser using the /flight command.",
       "version": "1.0.0",
       "author": {
-        "name": "laucw1213",
-        "email": ""
+        "name": "ZorCorp",
+        "url": "https://github.com/ZorCorp"
       },
-      "source": "./plugins/flight",
+      "source": "./plugins/cx-trip-pa",
       "category": "productivity"
     },
     {
@@ -61,6 +61,17 @@
         "url": "https://github.com/CYH928"
       },
       "source": "./plugins/prototyper",
+      "category": "productivity"
+    },
+    {
+      "name": "oc-on-cf",
+      "description": "Deploy OpenClaw on Cloudflare using the /deploy-openclaw command, including the bundled moltworker project.",
+      "version": "1.0.0",
+      "author": {
+        "name": "ZorCorp",
+        "url": "https://github.com/ZorCorp"
+      },
+      "source": "./plugins/oc-on-cf",
       "category": "productivity"
     },
     {
