@@ -22,7 +22,7 @@
     {
       "name": "kf-cli",
       "description": "KnowledgeFactory CLI - Native CLI implementation, no Docker/MCP required",
-      "version": "0.4.3",
+      "version": "0.4.4",
       "author": {
         "name": "ZorCorp",
         "email": "info@zorcorp.dev"
