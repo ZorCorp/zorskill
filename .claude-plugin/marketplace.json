@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -22,7 +22,7 @@
     {
       "name": "kf-cli",
       "description": "KnowledgeFactory CLI - Native CLI implementation, no Docker/MCP required",
-      "version": "0.5.2",
+      "version": "0.5.3",
       "author": {
         "name": "ZorCorp",
         "email": "info@zorcorp.dev"
