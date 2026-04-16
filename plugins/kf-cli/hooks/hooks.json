@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '[kf-cli hook] fired' >> /tmp/kf-hook-test.log"
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/index-note.sh"
           }
         ]
       }
