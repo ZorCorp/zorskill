@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[kf-cli hook] fired' >> /tmp/kf-hook-test.log"
+          }
+        ]
+      }
+    ]
+  }
+}
