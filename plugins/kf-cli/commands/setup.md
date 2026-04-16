@@ -52,36 +52,38 @@ echo ""
 echo "📦 Checking dependencies..."
 echo ""
 
-# Required
-command -v git >/dev/null && echo "✅ git" || echo "❌ git (required - brew install git)"
+# Always required (used by wiki indexer, share, and config handling)
 command -v python3 >/dev/null && echo "✅ python3" || echo "❌ python3 (required)"
-command -v jq >/dev/null && echo "✅ jq" || echo "❌ jq (required - brew install jq)"
+command -v jq     >/dev/null && echo "✅ jq"      || echo "❌ jq (required - brew install jq)"
+command -v git    >/dev/null && echo "✅ git"      || echo "❌ git (required for /publish - brew install git)"
 
-# CLI-specific (no Docker needed!)
-command -v yt-dlp >/dev/null && echo "✅ yt-dlp (YouTube metadata)" || echo "❌ yt-dlp (required - brew install yt-dlp)"
-command -v gh >/dev/null && echo "✅ gh (GitHub CLI)" || echo "❌ gh (required - brew install gh)"
+# Per-command requirements
+command -v yt-dlp >/dev/null && echo "✅ yt-dlp"  || echo "❌ yt-dlp (required for /youtube-note - brew install yt-dlp)"
+command -v gh     >/dev/null && echo "✅ gh"       || echo "⚠️  gh not found (required for /gitingest - brew install gh)"
 
-# Optional but recommended
-command -v uvx >/dev/null && echo "✅ uvx (YouTube transcripts)" || echo "⚠️  uvx (optional - brew install uv)"
+# Recommended — degrades gracefully without these but quality drops
+command -v uvx >/dev/null && echo "✅ uvx"        || echo "⚠️  uvx not found (recommended for YouTube transcripts - brew install uv)"
+command -v rg  >/dev/null && echo "✅ rg"         || echo "⚠️  rg not found (recommended for /semantic-search - brew install ripgrep)"
 
 echo ""
 echo "ℹ️  No Docker required! kf-cli uses native CLI tools."
 echo ""
 ```
 
-## Step 3: Check obsidian-cli
+## Step 3: Check ripgrep
 
 ```bash
-echo "🖥️  Checking obsidian-cli..."
+echo "🔍 Checking search backend..."
 echo ""
 
-if command -v obsidian-cli >/dev/null 2>&1; then
-    OBS_CLI_VERSION=$(obsidian-cli --version 2>/dev/null || echo "unknown")
-    echo "✅ obsidian-cli ($OBS_CLI_VERSION)"
+if command -v rg >/dev/null 2>&1; then
+    RG_VERSION=$(rg --version 2>/dev/null | head -1 || echo "unknown")
+    echo "✅ ripgrep ($RG_VERSION)"
+    echo "   /kf-cli:semantic-search will use ripgrep (fast)"
 else
-    echo "❌ obsidian-cli not found"
-    echo "   Install: npm install -g obsidian-cli"
-    echo "   Required for: /kf-cli:semantic-search"
+    echo "⚠️  ripgrep not found — falling back to grep"
+    echo "   Install: brew install ripgrep"
+    echo "   /kf-cli:semantic-search will still work via grep fallback"
 fi
 
 echo ""
@@ -311,7 +313,7 @@ echo ""
 echo "Key features:"
 echo "  ✅ No Docker required"
 echo "  ✅ Direct filesystem access (faster)"
-echo "  ✅ Uses native CLI tools (yt-dlp, gh, curl, obsidian-cli)"
+echo "  ✅ Uses native CLI tools (yt-dlp, gh, curl, rg)"
 echo "  ✅ Simpler architecture"
 echo ""
 echo "Configuration Files:"
