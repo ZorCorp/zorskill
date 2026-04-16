@@ -125,7 +125,7 @@ with open(claude_md_path, 'r', encoding='utf-8') as f:
     claude_content = f.read()
 
 table_m = re.search(
-    r'## Tag.*?Topic Mapping\n\|.*?\n\|[-| :]+\n((?:\|.*\n?)+)',
+    r'## Tag.*?Topic Mapping\n+\|.*?\n\|[-| :]+\n((?:\|.*\n?)+)',
     claude_content, re.IGNORECASE
 )
 if not table_m:
