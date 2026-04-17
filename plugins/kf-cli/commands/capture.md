@@ -3,6 +3,9 @@ description: Smart capture router - delegates to specialized handlers based on c
 argument-hint: [content to capture]
 allowed-tools:
   - SlashCommand(*)
+  - Bash(*)
+  - Write(*)
+  - Read(*)
 ---
 
 ## Task
