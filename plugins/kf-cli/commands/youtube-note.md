@@ -22,10 +22,10 @@ Create a YouTube video note using CLI tools (no MCP/Docker required).
 
 The skill will:
 1. Extract video ID from URL/argument
-2. Fetch transcript using bundled script:
+2. Fetch transcript using bundled script (locate it dynamically — the plugin may live under a marketplace):
    ```bash
-   PLUGIN_DIR="$HOME/.claude/plugins/marketplaces/kf-cli"
-   "$PLUGIN_DIR/scripts/core/fetch-youtube-transcript.sh" "$VIDEO_ID"
+   TRANSCRIPT_SCRIPT=$(find "$HOME/.claude/plugins" -maxdepth 7 -path "*/kf-cli/scripts/core/fetch-youtube-transcript.sh" 2>/dev/null | head -1)
+   bash "$TRANSCRIPT_SCRIPT" "$VIDEO_ID"
    ```
 3. Fetch video metadata using yt-dlp:
    ```bash
