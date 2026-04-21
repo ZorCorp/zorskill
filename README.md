@@ -18,7 +18,37 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 
 ## Install
 
-### Option A — Claude Code (Plugin Marketplace)
+### Option A — `npx skills add` (recommended)
+
+Installs any individual skill to `~/.agents/skills/` and auto-symlinks into every detected AI tool on your machine (Claude Code, Codex, Gemini CLI, Cursor, Copilot).
+
+```bash
+npx skills add ZorCorp/kf-cli
+npx skills add ZorCorp/prototyper
+# repeat for each skill
+```
+
+Update / uninstall:
+
+```bash
+npx skills update ZorCorp/kf-cli
+npx skills remove ZorCorp/kf-cli
+```
+
+Tell any AI agent to install a skill:
+
+> Install the Agent Skill at github.com/ZorCorp/kf-cli using `npx skills add ZorCorp/kf-cli`.
+
+### Option B — `gh skill install` (GitHub CLI)
+
+Copy mode — interactive prompts for target agent and scope. Requires GitHub CLI 2.90.0+.
+
+```bash
+gh skill install ZorCorp/kf-cli
+gh skill install ZorCorp/prototyper
+```
+
+### Option C — Claude Code (Plugin Marketplace)
 
 Best for Claude Code users — auto-update notifications included.
 
@@ -39,29 +69,15 @@ Update:
 /plugin update zorskill
 ```
 
-### Option B — npm (All Agents)
+### Option D — npm (All Agents)
 
 Installs all skills to `~/.agents/skills/` and auto-symlinks into every agent detected on your machine (Claude Code, OpenClaw, OpenCode, Gemini CLI).
 
-**Install all skills (recommended):**
+**Install all skills:**
 
 ```bash
 npm install -g @zorcorp/zorskills
 ```
-
-Only agents whose root directory exists on your machine are targeted — setup is safely skipped for agents you don't have installed.
-
-**Install individual skills:**
-
-| Skill | npm package |
-|-------|-------------|
-| `kf-cli` | included in `@zorcorp/zorskills` bundle only |
-| `kf-claude` | included in `@zorcorp/zorskills` bundle only |
-| `cx-trip-pa` | included in `@zorcorp/zorskills` bundle only |
-| `code-to-video` | included in `@zorcorp/zorskills` bundle only |
-| `oc-on-cf` | included in `@zorcorp/zorskills` bundle only |
-| `yellow-restaurant` | included in `@zorcorp/zorskills` bundle only |
-| `prototyper` | included in `@zorcorp/zorskills` bundle only |
 
 Update all skills:
 
@@ -69,9 +85,20 @@ Update all skills:
 npm update -g @zorcorp/zorskills
 ```
 
+---
+
+**Which should I pick?**
+
+| Situation | Pick |
+|---|---|
+| Install individual skills, cross-tool (**recommended**) | **Option A** (`npx skills`) |
+| Already using the `gh` CLI | Option B (`gh skill`) |
+| Claude Code only, with auto-updates | Option C (marketplace) |
+| Want all ZorCorp skills in one go | Option D (npm) |
+
 ### OpenClaw Install
 
-OpenClaw picks up skills from `~/.openclaw/skills/`. Use Option B (npm) for the easiest setup.
+OpenClaw picks up skills from `~/.openclaw/skills/`. Use Option A (`npx skills add`) or Option D (npm) for the easiest setup.
 
 **Manual install (git + script — works without npm):**
 

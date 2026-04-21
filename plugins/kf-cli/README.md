@@ -8,11 +8,40 @@ kf-cli is a **pure skill**: it exposes commands and templates only. Identity (wh
 
 ## Install
 
-**Two paths, by invoker. Pick one — they are not interchangeable.**
+### Option A — `npx skills add` (recommended)
 
-### Option 1: Shell installer — for OpenClaw (and any agent framework that reads `~/.agents/skills/`)
+Installs to `~/.agents/skills/kf-cli/` and creates symlinks in every detected AI tool's skills directory (Claude Code, Codex, Gemini CLI, Cursor, Copilot).
 
-Installs to `~/.agents/skills/kf-cli/`. OpenClaw and other agent runtimes that scan the agent-skill standard layout will pick it up automatically. Claude Code does **not** read this path — use Option 2 for Claude Code.
+```bash
+npx skills add ZorCorp/kf-cli
+```
+
+Update / uninstall:
+
+```bash
+npx skills update ZorCorp/kf-cli
+npx skills remove ZorCorp/kf-cli
+```
+
+Tell any AI agent to install it:
+
+> Install the Agent Skill at github.com/ZorCorp/kf-cli using `npx skills add ZorCorp/kf-cli`.
+
+### Option B — `gh skill install` (GitHub CLI)
+
+Copy mode — interactive prompts for target agent and scope. Requires GitHub CLI 2.90.0+.
+
+```bash
+gh skill install ZorCorp/kf-cli
+```
+
+Tell any AI agent to install it:
+
+> Install the Agent Skill at github.com/ZorCorp/kf-cli using `gh skill install ZorCorp/kf-cli`.
+
+### Option C — Shell installer (no npx / gh dependency)
+
+Installs to `~/.agents/skills/kf-cli/`. Works with OpenClaw and any agent framework that reads `~/.agents/skills/`.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash
@@ -25,14 +54,23 @@ curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | 
 curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash -s -- --uninstall
 ```
 
-### Option 2: Claude Code plugin marketplace — for Claude Code users
-
-Claude Code discovers skills through its plugin manager, not through `~/.agents/skills/`. Run this inside Claude Code:
+### Option D — Claude Code plugin marketplace
 
 ```
 /plugin marketplace add ZorCorp/zorskill
 /plugin install kf-cli
 ```
+
+---
+
+**Which should I pick?**
+
+| Situation | Pick |
+|---|---|
+| Standard setup — cross-tool, canonical `~/.agents/skills/` layout (**recommended**) | **Option A** (`npx skills`) |
+| Already using the `gh` CLI | Option B (`gh skill`) |
+| No `npx` available | Option C (shell installer) |
+| Claude Code only | Option D (marketplace) |
 
 ---
 
