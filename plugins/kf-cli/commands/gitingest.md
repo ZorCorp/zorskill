@@ -48,11 +48,11 @@ Analyze GitHub repositories using the `gh` CLI and create LLM-optimized markdown
 ## Implementation Details
 
 **This command uses the `gh` CLI for GitHub access:**
-1. **Repository info**: `gh api /repos/{owner}/{repo}`
-2. **File tree**: `gh api /repos/{owner}/{repo}/git/trees/{branch}?recursive=1`
-3. **File contents**: `gh api /repos/{owner}/{repo}/contents/{path}`
-4. **Commits**: `gh api /repos/{owner}/{repo}/commits?per_page=10`
-5. **Branches**: `gh api /repos/{owner}/{repo}/branches`
+1. **Repository info**: `gh api "/repos/{owner}/{repo}"`
+2. **File tree**: `gh api "/repos/{owner}/{repo}/git/trees/{branch}?recursive=1"`
+3. **File contents**: `gh api "/repos/{owner}/{repo}/contents/{path}"`
+4. **Commits**: `gh api "/repos/{owner}/{repo}/commits?per_page=10"`
+5. **Branches**: `gh api "/repos/{owner}/{repo}/branches"`
 
 **Authentication:**
 - Uses your existing `gh` CLI authentication
@@ -70,7 +70,7 @@ The command will:
 
 1. **Parse GitHub URL** to extract owner and repository name
 2. **Fetch repository info** using `gh api /repos/{owner}/{repo}`
-3. **Fetch file tree** using `gh api /repos/{owner}/{repo}/git/trees/{default_branch}?recursive=1`
+3. **Fetch file tree** using `gh api "/repos/{owner}/{repo}/git/trees/{default_branch}?recursive=1"`
 4. **Filter files** based on `--focus` mode (if specified)
 5. **Read file contents** for key files using `gh api /repos/{owner}/{repo}/contents/{path}` (base64 decode the content field)
 6. **Collect metadata**:
