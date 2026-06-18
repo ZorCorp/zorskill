@@ -93,7 +93,29 @@ The skill resolves the vault path at runtime in this order:
 
 Intelligently route content based on type and create properly tagged notes.
 
-#### YouTube Videos
+#### YouTube Videos — Watch (Learning-Focused)
+
+Use `/kf-cli:watch` for video capture. This is the default handler from `/kf-cli:capture`.
+
+**CLI Tools Used:**
+- **Visual pipeline**: `claude-watch` plugin (`watch.py`) — FFmpeg scene-change frames + transcript (when installed)
+- **Transcript fallback**: `scripts/core/fetch-youtube-transcript.sh` (when claude-watch unavailable)
+- **Metadata**: `yt-dlp --dump-json --no-download "$URL"` → extracts title, channel, description, duration, upload_date
+- **Thumbnail**: `curl -sI` to check resolution availability (maxresdefault → sddefault → hqdefault → mqdefault)
+- **Template**: `templates/watch-note-template.md`
+- **Save**: Write tool to vault path
+
+**Watch note adds over youtube-note:**
+- 🔬 Hook Microscope (first 10 seconds analysis)
+- 👁️ Visual Observations (from frames when claude-watch is installed)
+- 🧠 Core Concepts (mental models and definitions)
+- ✏️ Self-Test (3-5 Q&A pairs to verify comprehension)
+- ⚡ Apply It (checkbox action list)
+- Before → After (explicit articulation of learning delta)
+
+#### YouTube Videos — Simple Reference (youtube-note)
+
+Use `/kf-cli:youtube-note` for a compact transcript-only reference note.
 
 **CLI Tools Used:**
 - **Transcript**: `scripts/core/fetch-youtube-transcript.sh` (uses `uvx youtube_transcript_api`)
