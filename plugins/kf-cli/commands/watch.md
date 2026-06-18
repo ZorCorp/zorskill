@@ -181,7 +181,7 @@ Replace ALL `{{PLACEHOLDER}}` values. Never leave any placeholder unfilled.
 | `{{DESCRIPTION}}` | 2-3 sentences summarizing what the video covers and who it's for |
 | `{{HOOK_ANALYSIS}}` | What the thumbnail communicates visually + what happens in first 10s of transcript. If frames available, describe specific frames. Always include: thumbnail visual description, opening words with timestamps, hook strategy (in-media-res / problem-first / story / etc.) |
 | `{{LEARNING_OBJECTIVES}}` | Bullet list: "- Understand X", "- Apply Y", "- Build Z" — things a learner can DO after watching |
-| `{{CURRICULUM}}` | Timestamped table OR bullet list. Each entry: `[MM:SS] Topic — what was shown/said`. If frames available, mark visual-heavy moments with 👁️ |
+| `{{CURRICULUM}}` | Timestamped table with **clickable timestamp links**. For each row, convert `MM:SS` to total seconds and format as: `[MM:SS](https://www.youtube.com/watch?v={{VIDEO_ID}}&t=Xs)` where X is seconds (e.g. `[01:23]` → 83s → `[01:23](https://www.youtube.com/watch?v=VIDEO_ID&t=83s)`). Include: topic and what was shown/said. If frames available, mark visual-heavy moments with 👁️ |
 | `{{VISUAL_OBSERVATIONS}}` | If visual mode: specific observations from reading frames — UI shown, diagrams, code on screen, motion patterns, b-roll choices. If transcript-only: `*Note: visual analysis unavailable — {{WATCH_MODE}}. Re-watch for visual details.*` |
 | `{{CORE_CONCEPTS}}` | 3-6 concepts with brief definitions. Format: `**Concept**: one-line explanation`. Include mental models, frameworks, and terms this video introduces or relies on |
 | `{{KEY_INSIGHTS}}` | 3-5 bullet points: the most important things to remember from this video |

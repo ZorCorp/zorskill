@@ -38,6 +38,8 @@ By the end of this video, you'll be able to:
 
 ## 📋 Video Breakdown
 
+*Click any timestamp to jump directly to that moment in the video.*
+
 {{CURRICULUM}}
 
 ## 👁️ Visual Observations
