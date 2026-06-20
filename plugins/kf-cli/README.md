@@ -8,57 +8,74 @@ kf-cli is a **pure skill**: it exposes commands and templates only. Identity (wh
 
 ## Install
 
-### Option A — `npx skills add` (recommended)
+kf-cli follows the [Agent Skills specification](https://agentskills.io) — `SKILL.md` at the repo root, so every major AI tool can discover it.
 
-Installs to `~/.agents/skills/kf-cli/` and creates symlinks in every detected AI tool's skills directory (Claude Code, Codex, Gemini CLI, Cursor, Copilot).
+**Canonical architecture:** real files always live at `~/.agents/skills/kf-cli/`. Every AI tool's skills directory gets a symlink that points there. One copy to manage, every tool sees the same files.
+
+```
+~/.agents/skills/kf-cli/          ← real files (single source of truth)
+~/.claude/skills/kf-cli           → symlink → ~/.agents/skills/kf-cli
+~/.gemini/skills/kf-cli           → symlink → ~/.agents/skills/kf-cli
+~/.codex/skills/kf-cli            → symlink → ~/.agents/skills/kf-cli
+~/.cursor/skills/kf-cli           → symlink → ~/.agents/skills/kf-cli
+~/.copilot/skills/kf-cli          → symlink → ~/.agents/skills/kf-cli
+```
+
+### Option 1 — `npx skills add` (**recommended**)
 
 ```bash
 npx skills add ZorCorp/kf-cli
 ```
 
-Update / uninstall:
-
-```bash
-npx skills update ZorCorp/kf-cli
-npx skills remove ZorCorp/kf-cli
-```
+Installs the real files to `~/.agents/skills/kf-cli/` and creates symlinks in each detected AI tool's skills directory (`.claude/skills/`, `.gemini/skills/`, `.codex/skills/`, `.cursor/skills/`, `.copilot/skills/`) pointing back to the canonical location. Add `-g` for a user-wide install that every project inherits.
 
 Tell any AI agent to install it:
 
 > Install the Agent Skill at github.com/ZorCorp/kf-cli using `npx skills add ZorCorp/kf-cli`.
 
-### Option B — `gh skill install` (GitHub CLI)
+Update / uninstall:
 
-Copy mode — interactive prompts for target agent and scope. Requires GitHub CLI 2.90.0+.
+```bash
+npx skills update ZorCorp/kf-cli   # pull latest, symlinks unchanged
+npx skills remove ZorCorp/kf-cli   # remove skill + all links
+```
+
+**Windows (Git Bash):** if symlinks fail silently, `npx skills` falls back to NTFS junctions (`mklink /J`) — no admin rights or Developer Mode required.
+
+### Option 2 — `gh skill install` (GitHub CLI 2.90.0+)
 
 ```bash
 gh skill install ZorCorp/kf-cli
 ```
 
+`gh skill` is **copy mode** (not symlinks), with interactive prompts for target agent and scope. Each agent ends up with its own copy. Good fit if you already use the `gh` workflow or prefer GitHub-signed release metadata.
+
 Tell any AI agent to install it:
 
 > Install the Agent Skill at github.com/ZorCorp/kf-cli using `gh skill install ZorCorp/kf-cli`.
 
-### Option C — Shell installer (no npx / gh dependency)
+### Option 3 — Claude Code plugin marketplace (Claude Code only)
 
-Installs to `~/.agents/skills/kf-cli/`. Works with OpenClaw and any agent framework that reads `~/.agents/skills/`.
+If you use Claude Code exclusively and want to follow its official plugin update flow:
+
+```
+/plugin marketplace add ZorCorp/zorskill
+/plugin install kf-cli
+```
+
+This path doesn't use `~/.agents/skills/` — Claude Code's plugin manager owns its own storage.
+
+### Option 4 — Shell installer (no npx / gh dependency)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash
 ```
 
-Update / uninstall:
+Same canonical architecture as Option 1 — installs to `~/.agents/skills/kf-cli/` and symlinks all detected tool dirs. Use this only if `npx` is unavailable in your environment.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash -s -- --update
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash -s -- --uninstall
-```
-
-### Option D — Claude Code plugin marketplace
-
-```
-/plugin marketplace add ZorCorp/zorskill
-/plugin install kf-cli
+curl -fsSL .../install.sh | bash -s -- --update        # update + refresh links
+curl -fsSL .../install.sh | bash -s -- --uninstall     # remove skill + all kf-cli links
 ```
 
 ---
@@ -67,10 +84,12 @@ curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | 
 
 | Situation | Pick |
 |---|---|
-| Standard setup — cross-tool, canonical `~/.agents/skills/` layout (**recommended**) | **Option A** (`npx skills`) |
-| Already using the `gh` CLI | Option B (`gh skill`) |
-| No `npx` available | Option C (shell installer) |
-| Claude Code only | Option D (marketplace) |
+| Standard setup — cross-tool, canonical `~/.agents/skills/` layout (**recommended**) | **Option 1** (`npx skills`) |
+| Already using the `gh` CLI, want GitHub release metadata | Option 2 (`gh skill`) |
+| Claude Code only, prefer the official plugin flow | Option 3 (plugin marketplace) |
+| No `npx` available | Option 4 (shell installer) |
+
+All options install the same skill — **pick one; don't mix them** (whichever method runs last wins the per-tool skill path).
 
 ---
 
@@ -163,6 +182,7 @@ This is **optional** and **Obsidian-specific**. Skip it if you don't use Obsidia
 | Command | Description |
 |---|---|
 | `/kf-cli:capture <content>` | Smart router — YouTube, GitHub, URL, or text |
+| `/kf-cli:watch <url>` | YouTube note with visual learning analysis |
 | `/kf-cli:youtube-note <url>` | YouTube note with transcript and curriculum |
 | `/kf-cli:idea <text>` | Quick idea capture with AI tagging |
 | `/kf-cli:gitingest <github-url>` | GitHub repo analysis digest |

@@ -2,6 +2,30 @@
 
 All notable changes to kf-cli will be documented in this file.
 
+## [0.6.1] - 2026-04-21
+
+### Added
+- `/kf-cli:watch`: learning-focused YouTube capture with visual analysis when `claude-watch` is available, plus transcript fallback and the `watch-note-template`.
+- `/kf-cli:capture` now routes YouTube URLs to `/kf-cli:watch` instead of transcript-only capture.
+
+### Updated
+- `commands/watch.md`, `templates/watch-note-template.md`, `commands/setup.md`, `COMMANDS.md`, `README.md`, and plugin metadata now include the watch workflow.
+
+## [0.6.0] - 2026-04-21
+
+### Added
+- `install.sh`: auto-link step. After writing the canonical copy to `~/.agents/skills/kf-cli/`, the installer detects Claude Code / Codex / Gemini CLI / Cursor / GitHub Copilot and links each tool's skills dir to the canonical location. One place to manage, every tool sees the update.
+- Cross-platform link type: POSIX symlinks on Linux / macOS, NTFS junctions (`mklink /J`) on Windows — no admin rights or Developer Mode required.
+- `install.sh` flags: `--no-link` (skip link step), `--force-link` (link even if tool dir absent).
+- `install.sh --uninstall`: removes all kf-cli links (only links pointing into our canonical dir) in addition to the canonical directory itself.
+- `README.md`: rewrote Install section with 4 options — shell installer (recommended, symlink-based), Claude Code plugin marketplace, `npx skills add`, and `gh skill install`.
+- `SKILL.md` frontmatter: added `license`, `metadata.version`, `metadata.repository`, `metadata.homepage` for Agent Skills spec completeness (used by `npx skills` and `gh skill update`).
+
+### Preserved
+- `~/.agents/skills/kf-cli/` remains the canonical real-file location (layout unchanged).
+- `.claude-plugin/marketplace.json` structurally unchanged (version bump only).
+- `install.sh` core behavior (`fetch_and_extract`, `diff -qr` update detection, `prune_backups`, `check_deps`) unchanged.
+
 ## [0.4.6] - 2026-04-13
 
 ### Added
@@ -15,7 +39,7 @@ All notable changes to kf-cli will be documented in this file.
 ## [0.4.4] - 2026-04-13
 
 ### Fixed
-- Expanded `allowed-tools` in all 11 commands to eliminate Claude Code permission prompts
+- Expanded `allowed-tools` in all 12 commands to eliminate Claude Code permission prompts
   - `article`: `Bash(date)` → `Bash(*)`
   - `capture`: `Bash(date)` → `Bash(*), Read(*), Write(*), WebFetch(*)`
   - `gitingest`: `WebFetch` → `WebFetch(*)`
@@ -36,8 +60,9 @@ All notable changes to kf-cli will be documented in this file.
 
 ### Added
 - Initial release of kf-cli — native CLI replacement for kf-claude
-- All 11 commands ported from kf-claude with MCP → CLI tool replacement:
+- All 12 commands ported from kf-claude with MCP → CLI tool replacement:
   - `/kf-cli:capture` — Smart content router
+  - `/kf-cli:watch` — Learning-focused YouTube analysis with frames + transcript
   - `/kf-cli:youtube-note` — YouTube video notes (yt-dlp + uvx transcript)
   - `/kf-cli:idea` — Quick idea capture
   - `/kf-cli:gitingest` — GitHub repository analysis (gh CLI)

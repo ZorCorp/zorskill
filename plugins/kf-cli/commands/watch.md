@@ -179,7 +179,7 @@ Replace ALL `{{PLACEHOLDER}}` values. Never leave any placeholder unfilled.
 | `{{TOPIC_TAGS}}` | 2-4 tags from taxonomy, comma-separated |
 | `{{METADATA_TAGS}}` | 1-2 tags: tutorial, deep-dive, technical, actionable, conceptual, inspiration |
 | `{{DESCRIPTION}}` | 2-3 sentences summarizing what the video covers and who it's for |
-| `{{HOOK_ANALYSIS}}` | What the thumbnail communicates visually + what happens in first 10s of transcript. If frames available, describe specific frames. Always include: thumbnail visual description, opening words with timestamps, hook strategy (in-media-res / problem-first / story / etc.) |
+| `{{HOOK_ANALYSIS}}` | What the thumbnail communicates visually + what happens in the first 10s of transcript. If frames available, describe specific frames. Always include: thumbnail visual description, opening words with timestamps, hook strategy (in-media-res / problem-first / story / etc.) |
 | `{{LEARNING_OBJECTIVES}}` | Bullet list: "- Understand X", "- Apply Y", "- Build Z" — things a learner can DO after watching |
 | `{{CURRICULUM}}` | Timestamped table with **clickable timestamp links**. For each row, convert `MM:SS` to total seconds and format as: `[MM:SS](https://www.youtube.com/watch?v={{VIDEO_ID}}&t=Xs)` where X is seconds (e.g. `[01:23]` → 83s → `[01:23](https://www.youtube.com/watch?v=VIDEO_ID&t=83s)`). Include: topic and what was shown/said. If frames available, mark visual-heavy moments with 👁️ |
 | `{{VISUAL_OBSERVATIONS}}` | If visual mode: specific observations from reading frames — UI shown, diagrams, code on screen, motion patterns, b-roll choices. If transcript-only: `*Note: visual analysis unavailable — {{WATCH_MODE}}. Re-watch for visual details.*` |
@@ -223,44 +223,3 @@ SCRIPT=$(find "$HOME/.claude/plugins" \
 ```
 
 Replace `$FILEPATH` with the actual absolute path used in Step 5.
-
----
-
-## ⚠️ Template Compliance Checklist
-
-Before saving, verify:
-- [ ] All `{{PLACEHOLDER}}` values replaced — zero placeholders remain
-- [ ] `watch_mode:` frontmatter field is set
-- [ ] `video_date:` (not `published:`) in frontmatter
-- [ ] `read: false` in frontmatter
-- [ ] Clickable thumbnail link after H1
-- [ ] `{{VISUAL_OBSERVATIONS}}` filled — even if transcript-only, explain why
-- [ ] `{{BEFORE_AFTER}}` contains specific Before/After pairs (not generic)
-- [ ] `{{SELF_TEST}}` contains 3-5 actual Q&A pairs
-- [ ] `{{ACTION_CHECKLIST}}` uses `- [ ]` checkboxes
-- [ ] 6-8 total tags, always includes `video` and `inbox`
-
----
-
-## Quality Standards for Learning Notes
-
-The difference between a **reference note** and a **learning note**:
-
-- **Reference**: "Here's what was in the video." (youtube-note does this)
-- **Learning**: "Here's what changed in my understanding, and how I'll test and apply it." (watch does this)
-
-The `{{SELF_TEST}}` and `{{BEFORE_AFTER}}` sections are the heart of this command.
-Generate them as if you're a teacher writing an exam and study guide for this specific video.
-Do not make them generic — every question should be answerable ONLY by someone who watched this video.
-
-## After Saving: Index the Note
-
-Run the indexer with the exact file path used when saving:
-
-```bash
-SCRIPT=$(find "$HOME/.claude/plugins" -path "*/kf-cli/hooks/scripts/index-note.sh" 2>/dev/null | head -1)
-[[ -n "$SCRIPT" ]] && bash "$SCRIPT" "/absolute/path/to/saved/note.md"
-```
-
-Replace `/absolute/path/to/saved/note.md` with the actual absolute path of the note just saved.
-The script reads the note's tags, looks up the Tag → Topic mapping in `CLAUDE.md`, and updates the wiki automatically.

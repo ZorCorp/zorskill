@@ -3,9 +3,6 @@ description: Smart capture router - delegates to specialized handlers based on c
 argument-hint: [content to capture]
 allowed-tools:
   - SlashCommand(*)
-  - Bash(*)
-  - Write(*)
-  - Read(*)
 ---
 
 ## Task
@@ -85,7 +82,6 @@ SlashCommand("/kf-cli:idea $ARGUMENTS")
 ## Important
 
 - This command is a **router only** - it does NOT process content directly
-- Each handler (`/kf-cli:watch`, `/kf-cli:gitingest`, `/kf-cli:study-guide`, `/kf-cli:idea`) has its own template and logic
-- To get the simpler transcript-only note format, call `/kf-cli:youtube-note` directly
+- Each handler (`/kf-cli:watch`, `/kf-cli:youtube-note`, `/kf-cli:gitingest`, `/kf-cli:study-guide`, `/kf-cli:idea`) has its own template and logic
 - After detecting content type, immediately delegate using `SlashCommand`
 - Always use `/kf-cli:` prefixed commands to ensure plugin templates are used
