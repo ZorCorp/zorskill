@@ -13,3 +13,9 @@
 [submodule "plugins/cx-trip-pa"]
 	path = plugins/cx-trip-pa
 	url = https://github.com/ZorCorp/cx-trip-pa.git
+[submodule "plugins/hermes-on-cf"]
+	path = plugins/hermes-on-cf
+	url = https://github.com/ZorCorp/hermes-on-cf.git
+[submodule "plugins/openclaw-on-cf"]
+	path = plugins/openclaw-on-cf
+	url = https://github.com/ZorCorp/openclaw-on-cf.git
