@@ -10,9 +10,12 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
 | `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
 | `code-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/code-to-video](https://github.com/ZorCorp/code-to-video) |
-| `oc-on-cf` | Deploy OpenClaw on Cloudflare with `/deploy-openclaw` | [ZorCorp/oc-on-cf](https://github.com/ZorCorp/oc-on-cf) |
+| `hermes-on-cf` | Deploy your own Hermes Agent (Telegram bot) on Cloudflare — self-service Worker + Container + R2 + AI Gateway | [ZorCorp/hermes-on-cf](https://github.com/ZorCorp/hermes-on-cf) |
+| `openclaw-on-cf` | Deploy your own OpenClaw bot (Telegram + web dashboard) on Cloudflare — self-service Worker + Container + R2 + AI Gateway | [ZorCorp/openclaw-on-cf](https://github.com/ZorCorp/openclaw-on-cf) |
 | `prototyper` | Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations — includes a built-in HKUST Store Virtual Try-On demo | [ZorCorp/prototyper](https://github.com/ZorCorp/prototyper) |
 | `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
+
+> **Note** — `hermes-on-cf` and `openclaw-on-cf` ship as **external-source** plugins pinned to tag `v1.0` from their own repos (they replace the retired OpenClaw-on-Cloudflare plugin). Install them via the Claude Code marketplace (Option C) or `npx skills add` (Option A); they are **not** bundled into the npm all-in-one package (Option D).
 
 ---
 
@@ -58,7 +61,8 @@ Best for Claude Code users — auto-update notifications included.
 /plugin install kf-claude
 /plugin install cx-trip-pa
 /plugin install code-to-video
-/plugin install oc-on-cf
+/plugin install hermes-on-cf
+/plugin install openclaw-on-cf
 /plugin install yellow-restaurant
 /plugin install prototyper
 ```
@@ -114,7 +118,7 @@ Restart OpenClaw after install — skills are loaded on agent startup.
 
 ```bash
 ls ~/.openclaw/skills/
-# kf-cli   kf-claude   cx-trip-pa   code-to-video   oc-on-cf   yellow-restaurant   prototyper
+# kf-cli   kf-claude   cx-trip-pa   code-to-video   yellow-restaurant   prototyper
 ```
 
 **Tested commands:**
@@ -138,7 +142,6 @@ npm install -g @zorcorp/zorskills
                   ├─ ~/.agents/skills/kf-cli
                   ├─ ~/.agents/skills/kf-claude
                   ├─ ~/.agents/skills/code-to-video
-                  ├─ ~/.agents/skills/oc-on-cf
                   ├─ ~/.agents/skills/yellow-restaurant
                   ├─ ~/.agents/skills/prototyper
                   │
@@ -146,7 +149,6 @@ npm install -g @zorcorp/zorskills
                   ├─ ~/.claude/skills/kf-cli                  → ../../.agents/skills/kf-cli
                   ├─ ~/.claude/skills/kf-claude               → ../../.agents/skills/kf-claude
                   ├─ ~/.claude/skills/code-to-video           → ../../.agents/skills/code-to-video
-                  ├─ ~/.claude/skills/oc-on-cf                → ../../.agents/skills/oc-on-cf
                   ├─ ~/.claude/skills/yellow-restaurant       → ../../.agents/skills/yellow-restaurant
                   ├─ ~/.claude/skills/prototyper              → ../../.agents/skills/prototyper
                   │
@@ -154,7 +156,6 @@ npm install -g @zorcorp/zorskills
                   ├─ ~/.openclaw/skills/kf-cli                → ../../.agents/skills/kf-cli
                   ├─ ~/.openclaw/skills/kf-claude             → ../../.agents/skills/kf-claude
                   ├─ ~/.openclaw/skills/code-to-video         → ../../.agents/skills/code-to-video
-                  ├─ ~/.openclaw/skills/oc-on-cf              → ../../.agents/skills/oc-on-cf
                   ├─ ~/.openclaw/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
                   ├─ ~/.openclaw/skills/prototyper            → ../../.agents/skills/prototyper
                   │
@@ -162,7 +163,6 @@ npm install -g @zorcorp/zorskills
                   ├─ ~/.opencode/skills/kf-cli                → ../../.agents/skills/kf-cli
                   ├─ ~/.opencode/skills/kf-claude             → ../../.agents/skills/kf-claude
                   ├─ ~/.opencode/skills/code-to-video         → ../../.agents/skills/code-to-video
-                  ├─ ~/.opencode/skills/oc-on-cf              → ../../.agents/skills/oc-on-cf
                   ├─ ~/.opencode/skills/yellow-restaurant     → ../../.agents/skills/yellow-restaurant
                   ├─ ~/.opencode/skills/prototyper            → ../../.agents/skills/prototyper
                   │
@@ -170,7 +170,6 @@ npm install -g @zorcorp/zorskills
                   ├─ ~/.gemini/extensions/kf-cli              → ../../.agents/skills/kf-cli
                   ├─ ~/.gemini/extensions/kf-claude           → ../../.agents/skills/kf-claude
                   ├─ ~/.gemini/extensions/code-to-video       → ../../.agents/skills/code-to-video
-                  ├─ ~/.gemini/extensions/oc-on-cf            → ../../.agents/skills/oc-on-cf
                   ├─ ~/.gemini/extensions/yellow-restaurant   → ../../.agents/skills/yellow-restaurant
                   └─ ~/.gemini/extensions/prototyper          → ../../.agents/skills/prototyper
 ```
@@ -410,7 +409,6 @@ zorskill/
 │   ├── kf-cli/                  # submodule → ZorCorp/kf-cli
 │   ├── kf-claude/               # submodule → ZorCorp/kf-claude (legacy)
 │   ├── code-to-video/           # submodule → ZorCorp/code-to-video
-│   ├── oc-on-cf/                # submodule → ZorCorp/oc-on-cf
 │   ├── yellow-restaurant/       # submodule → ZorCorp/yellow-restaurant
 │   └── prototyper/              # submodule → ZorCorp/prototyper
 └── README.md
