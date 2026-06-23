@@ -13,6 +13,3 @@
 [submodule "plugins/cx-trip-pa"]
 	path = plugins/cx-trip-pa
 	url = https://github.com/ZorCorp/cx-trip-pa.git
-[submodule "plugins/oc-on-cf"]
-	path = plugins/oc-on-cf
-	url = https://github.com/ZorCorp/oc-on-cf.git

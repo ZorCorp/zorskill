@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -64,14 +64,33 @@
       "category": "productivity"
     },
     {
-      "name": "oc-on-cf",
-      "description": "Deploy OpenClaw on Cloudflare using the /deploy-openclaw command, including the bundled moltworker project.",
+      "name": "hermes-on-cf",
+      "description": "Deploy your own Hermes Agent — a stateful AI agent reachable from your own Telegram bot — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
         "url": "https://github.com/ZorCorp"
       },
-      "source": "./plugins/oc-on-cf",
+      "source": {
+        "source": "github",
+        "repo": "ZorCorp/hermes-on-cf",
+        "ref": "v1.0"
+      },
+      "category": "productivity"
+    },
+    {
+      "name": "openclaw-on-cf",
+      "description": "Deploy your own OpenClaw bot — an AI agent with both a Telegram channel and a web dashboard — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
+      "version": "1.0.0",
+      "author": {
+        "name": "ZorCorp",
+        "url": "https://github.com/ZorCorp"
+      },
+      "source": {
+        "source": "github",
+        "repo": "ZorCorp/openclaw-on-cf",
+        "ref": "v1.0"
+      },
       "category": "productivity"
     },
     {
