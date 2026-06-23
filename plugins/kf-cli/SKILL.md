@@ -1,6 +1,6 @@
 ---
 name: kf-cli
-description: Manage Obsidian knowledge base - capture ideas, YouTube videos, articles, repositories, create study guides, publish to GitHub Pages, and share notes via URL (no server storage). Use smart AI tagging for automatic organization. CLI-native — no Docker/MCP required.
+description: AI-powered knowledge pipeline for Obsidian. Captures any input — YouTube, Loom, Vimeo, and other public videos, web articles, GitHub repos, ideas — into structured, auto-tagged notes using purpose-built templates. Indexes captures into a wiki second brain that persists across sessions and context windows. Publishes notes to GitHub Pages and shares via URL. Commands: /capture (universal router), /watch (video notes for any yt-dlp-supported platform), /study-guide, /idea, /publish, /share. CLI-native — no Docker or MCP required.
 license: MIT
 allowed-tools:
   - Bash(*)
@@ -17,9 +17,17 @@ metadata:
   homepage: https://github.com/ZorCorp/kf-cli
 ---
 
-# Obsidian Vault Manager (CLI-Native)
+# KnowledgeFactory CLI — Obsidian Knowledge Pipeline
 
-Manage an AI-powered Obsidian knowledge base with automatic organization and GitHub Pages publishing. This is the **CLI-native** version — uses `yt-dlp`, `gh` CLI, `curl`, and direct file operations instead of MCP/Docker.
+AI-powered capture-to-publish pipeline for Obsidian. Turns any input into a permanent, structured, auto-tagged note — then keeps your vault organized and publishable.
+
+**The pipeline**: Capture → Auto-tag → Template → Wiki index → Publish
+- **Capture**: `/capture` routes any input to the right handler — video URLs (YouTube, Loom, Vimeo, any yt-dlp-supported platform) → `/watch`, GitHub → `/gitingest`, articles → `/article` or `/study-guide`, plain text → `/idea`
+- **Auto-tag**: Every note gets structured tags from a fixed taxonomy for Bases filtering
+- **Wiki index**: Notes are automatically indexed into `wiki/[topic]/[topic].md` so the vault compounds over time
+- **Publish**: `/publish` pushes to GitHub Pages; `/share` generates a URL-encoded sharable link with no server storage
+
+This is the **CLI-native** version — uses `yt-dlp`, `gh` CLI, `curl`, and direct file operations instead of MCP/Docker.
 
 ## Vault Configuration
 
@@ -50,7 +58,7 @@ The skill resolves the vault path at runtime in this order:
 
 ### Content Type Tags (choose 1)
 - `idea` - Random thoughts, concepts, brainstorms
-- `video` - YouTube videos, lectures
+- `video` - YouTube, Loom, Vimeo, and other public videos, lectures
 - `article` - Web articles, blog posts
 - `study-guide` - Learning materials, courses
 - `repository` - Code repositories, technical analysis
@@ -98,21 +106,25 @@ The skill resolves the vault path at runtime in this order:
 
 Intelligently route content based on type and create properly tagged notes.
 
-#### YouTube Videos
+#### Video Notes (YouTube, Loom, Vimeo, and more)
+
+Supports any public video platform that yt-dlp can reach — YouTube, Loom, Vimeo, TikTok, Twitch, X/Twitter, and others. Private videos requiring login are not supported.
 
 **CLI Tools Used:**
-- **Transcript**: `scripts/core/fetch-youtube-transcript.sh` (uses `uvx youtube_transcript_api`)
-- **Metadata**: `yt-dlp --dump-json --no-download "$URL"` → extracts title, channel, description, duration, upload_date
-- **Thumbnail**: `curl -sI` to check resolution availability (maxresdefault → sddefault → hqdefault → mqdefault)
+- **Metadata**: `yt-dlp --dump-json --no-download "$URL"` → extracts title, channel/uploader, duration, upload_date, thumbnail URL
+- **Transcript (YouTube)**: `scripts/core/fetch-youtube-transcript.sh` (uses `uvx youtube_transcript_api`)
+- **Transcript (other platforms)**: `yt-dlp --write-subs --write-auto-subs --sub-format vtt`
+- **Thumbnail (YouTube)**: `curl -sI` to check ytimg.com resolution availability (maxresdefault → sddefault → hqdefault → mqdefault)
+- **Thumbnail (other)**: URL from yt-dlp metadata
 - **Template**: `templates/watch-note-template.md`
 - **Save**: Write tool to vault path
 
 **Process:**
-1. Extract VIDEO_ID from URL
-2. Fetch transcript via bundled script
-3. Fetch metadata via `yt-dlp --dump-json` (fallback: WebFetch YouTube page)
-4. Check best thumbnail resolution
-5. Read template, substitute `{{PLACEHOLDER}}` values
+1. Detect platform (YouTube vs other) and normalise URL
+2. Fetch metadata via `yt-dlp --dump-json`
+3. Fetch transcript via platform-appropriate method
+4. Resolve cover URL
+5. Read template, substitute `{{PLACEHOLDER}}` values (uses `{{VIDEO_URL}}` and `{{COVER_URL}}` — not YouTube-specific IDs)
 6. Apply smart tagging (6-8 tags)
 7. Write file: `YYYY-MM-DD-creator-name-descriptive-title.md`
 

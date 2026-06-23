@@ -17,7 +17,7 @@ Analyze the input and delegate to the appropriate command. **Check patterns in t
 
 | Priority | Content Type | Pattern | Delegate To |
 |----------|--------------|---------|-------------|
-| 1 | **YouTube** | Domain is `youtube.com` or `youtu.be` | `/kf-cli:watch` |
+| 1 | **Video** | Domain is `youtube.com`, `youtu.be`, `loom.com`, `vimeo.com`, `tiktok.com`, `twitch.tv`, or other known video platform | `/kf-cli:watch` |
 | 2 | **GitHub** | Domain is `github.com` | `/kf-cli:gitingest` |
 | 3 | **Long Article** | Input length > 1000 chars OR contains keywords like "article", "blog", "comprehensive" | `/kf-cli:article` |
 | 4 | **Web Article** | Other `http://` or `https://` URL | `/kf-cli:study-guide` |
@@ -25,8 +25,8 @@ Analyze the input and delegate to the appropriate command. **Check patterns in t
 
 ## Routing Logic
 
-### 1. YouTube URLs
-**Pattern**: URL contains `youtube.com` or `youtu.be`
+### 1. Video URLs
+**Pattern**: URL contains `youtube.com`, `youtu.be`, `loom.com`, `vimeo.com`, `tiktok.com`, `twitch.tv`, or other known video platform
 
 ```
 SlashCommand("/kf-cli:watch $ARGUMENTS")

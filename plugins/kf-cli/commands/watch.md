@@ -1,6 +1,6 @@
 ---
-description: Watch a YouTube video with visual frame analysis and save as a learning-focused note — uses claude-watch frames when available, falls back to transcript-only
-argument-hint: [youtube-url-or-video-id] [optional context or instructions]
+description: Watch a video and save as a learning-focused note — supports YouTube, Loom, Vimeo, and any yt-dlp-supported public platform. Uses claude-watch frames when available, falls back to transcript-only.
+argument-hint: [video-url-or-youtube-id] [optional context or instructions]
 allowed-tools:
   - Bash(*)
   - Read(*)
@@ -15,35 +15,50 @@ and saving it using the `watch-note-template`.
 
 **⚠️ You MUST use the Write tool to save the file to the vault!**
 
-**Input**: `$ARGUMENTS` (YouTube URL or video ID, plus any optional context)
+**Input**: `$ARGUMENTS` (video URL or YouTube video ID, plus any optional context)
 **Operation**: Watch → extract visual + transcript insights → save learning note
 **Today's Date**: Run `date "+%Y-%m-%d"` to get current date
 
 ---
 
-## Step 1 — Extract Video ID, Date & Metadata
+## Step 1 — Detect Platform, Extract Metadata
 
 ```bash
-# Extract video ID from various URL formats
 ARGS="$ARGUMENTS"
-VIDEO_ID=$(echo "$ARGS" | grep -oE '[?&]v=([^&[:space:]]+)' | head -1 | cut -d= -f2)
-[[ -z "$VIDEO_ID" ]] && VIDEO_ID=$(echo "$ARGS" | grep -oE 'youtu\.be/([^?[:space:]]+)' | head -1 | sed 's|youtu.be/||')
-[[ -z "$VIDEO_ID" ]] && VIDEO_ID=$(echo "$ARGS" | grep -oE '^[A-Za-z0-9_-]{11}$')
-
+URL=$(echo "$ARGS" | grep -oE 'https?://[^ ]+' | head -1)
 TODAY=$(date "+%Y-%m-%d")
-echo "VIDEO_ID=$VIDEO_ID  TODAY=$TODAY"
+
+# Detect platform and normalise URL
+if echo "$URL" | grep -qE '(youtube\.com|youtu\.be)'; then
+  PLATFORM="youtube"
+  VIDEO_ID=$(echo "$URL" | grep -oE '[?&]v=([^&[:space:]]+)' | head -1 | cut -d= -f2)
+  [[ -z "$VIDEO_ID" ]] && VIDEO_ID=$(echo "$URL" | grep -oE 'youtu\.be/([^?[:space:]]+)' | head -1 | sed 's|.*youtu\.be/||')
+  [[ -z "$VIDEO_ID" ]] && VIDEO_ID=$(echo "$ARGS" | grep -oE '^[A-Za-z0-9_-]{11}$')
+  FULL_URL="https://www.youtube.com/watch?v=$VIDEO_ID"
+elif [[ -n "$URL" ]]; then
+  PLATFORM="other"
+  FULL_URL="$URL"
+else
+  # Bare 11-char YouTube video ID
+  PLATFORM="youtube"
+  VIDEO_ID="$ARGS"
+  FULL_URL="https://www.youtube.com/watch?v=$VIDEO_ID"
+fi
+
+echo "PLATFORM=$PLATFORM  FULL_URL=$FULL_URL  TODAY=$TODAY"
 ```
 
-Fetch metadata:
+Fetch metadata via yt-dlp (works for YouTube, Loom, Vimeo, and any supported platform):
 ```bash
-yt-dlp --dump-json --no-download "https://www.youtube.com/watch?v=$VIDEO_ID" 2>/dev/null \
+yt-dlp --dump-json --no-download "$FULL_URL" 2>/dev/null \
   | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
 print('TITLE=' + d.get('title',''))
-print('CHANNEL=' + d.get('channel',''))
+print('CHANNEL=' + (d.get('channel','') or d.get('uploader','')))
 print('UPLOAD_DATE=' + d.get('upload_date',''))
 print('DURATION_SECS=' + str(d.get('duration',0)))
+print('THUMBNAIL_URL=' + (d.get('thumbnail','') or ''))
 "
 ```
 
@@ -57,12 +72,22 @@ Compute human duration:
 python3 -c "s=$DURATION_SECS; print(f'{s//60}:{s%60:02d}')"
 ```
 
-Find best thumbnail:
+Set cover URL — YouTube uses ytimg.com CDN with resolution fallback; other platforms use the thumbnail URL from yt-dlp metadata:
 ```bash
-for res in maxresdefault sddefault hqdefault mqdefault; do
-  STATUS=$(curl -sI "https://i.ytimg.com/vi/$VIDEO_ID/$res.jpg" | head -1 | awk '{print $2}')
-  if [ "$STATUS" = "200" ]; then echo "$res"; break; fi
-done
+if [[ "$PLATFORM" == "youtube" ]]; then
+  COVER_URL=""
+  for res in maxresdefault sddefault hqdefault mqdefault; do
+    STATUS=$(curl -sI "https://i.ytimg.com/vi/$VIDEO_ID/$res.jpg" | head -1 | awk '{print $2}')
+    if [ "$STATUS" = "200" ]; then
+      COVER_URL="https://i.ytimg.com/vi/$VIDEO_ID/$res.jpg"
+      break
+    fi
+  done
+else
+  COVER_URL="$THUMBNAIL_URL"
+fi
+VIDEO_URL="$FULL_URL"
+echo "COVER_URL=$COVER_URL  VIDEO_URL=$VIDEO_URL"
 ```
 
 ---
@@ -84,9 +109,9 @@ echo "WATCH_PY=$WATCH_PY"
 If `$WATCH_PY` is non-empty, run the visual pipeline:
 
 ```bash
-WORKDIR="/tmp/kf-watch-$VIDEO_ID"
+WORKDIR="/tmp/kf-watch-$(echo "$FULL_URL" | md5 | cut -c1-8)"
 mkdir -p "$WORKDIR"
-python3 "$WATCH_PY" "https://www.youtube.com/watch?v=$VIDEO_ID" \
+python3 "$WATCH_PY" "$FULL_URL" \
   --out-dir "$WORKDIR" 2>&1 | tail -20
 ```
 
@@ -128,26 +153,59 @@ echo "FRAMES=$FRAME_COUNT  VTT=$TRANSCRIPT_VTT"
   ```
   Also download and read the thumbnail image for hook analysis:
   ```bash
-  curl -sL "https://i.ytimg.com/vi/$VIDEO_ID/maxresdefault.jpg" -o "/tmp/kf-watch-thumb-$VIDEO_ID.jpg"
+  THUMB_TMP="/tmp/kf-watch-thumb-$(echo "$FULL_URL" | md5 | cut -c1-8).jpg"
+  curl -sL "$COVER_URL" -o "$THUMB_TMP"
   ```
-  Then Read("/tmp/kf-watch-thumb-$VIDEO_ID.jpg") and describe it for `{{HOOK_ANALYSIS}}`.
+  Then Read("$THUMB_TMP") and describe it for `{{HOOK_ANALYSIS}}`.
 
 ### Branch B — claude-watch is NOT installed
 
 Set `WATCH_MODE="transcript-only (claude-watch not installed)"`.
 
-Fetch transcript using kf-cli's bundled script:
+Fetch transcript — method depends on platform:
+
+**YouTube** — use kf-cli's bundled transcript script:
 ```bash
 TRANSCRIPT_SCRIPT=$(find "$HOME/.claude/plugins" -maxdepth 7 \
   -path "*/kf-cli/scripts/core/fetch-youtube-transcript.sh" 2>/dev/null | head -1)
 bash "$TRANSCRIPT_SCRIPT" "$VIDEO_ID" 2>/dev/null
 ```
 
+**Other platforms (Loom, Vimeo, etc.)** — extract subtitles via yt-dlp:
+```bash
+WORKDIR="/tmp/kf-watch-$(echo "$FULL_URL" | md5 | cut -c1-8)"
+mkdir -p "$WORKDIR"
+yt-dlp --write-subs --write-auto-subs --sub-format vtt --skip-download \
+  -o "$WORKDIR/video" "$FULL_URL" 2>/dev/null
+VTT_FILE=$(find "$WORKDIR" -name "*.vtt" 2>/dev/null | head -1)
+if [[ -n "$VTT_FILE" ]]; then
+  python3 -c "
+import re
+with open('$VTT_FILE') as f: content = f.read()
+blocks = re.split(r'\n\n', content)
+seen = set()
+for block in blocks:
+    lines = block.strip().split('\n')
+    ts = next((l.split(' --> ')[0].strip() for l in lines if '-->' in l), None)
+    if not ts: continue
+    text = ''
+    for l in reversed(lines):
+        c = re.sub(r'<[^>]+>', '', l).strip()
+        if c: text = c; break
+    if text and text not in seen:
+        seen.add(text)
+        print(f'[{ts}] {text}')
+"
+fi
+```
+If no subtitles are available, note this in `{{VISUAL_OBSERVATIONS}}` and proceed with what metadata is available.
+
 Download and read the thumbnail for hook analysis:
 ```bash
-curl -sL "https://i.ytimg.com/vi/$VIDEO_ID/maxresdefault.jpg" -o "/tmp/kf-watch-thumb-$VIDEO_ID.jpg"
+THUMB_TMP="/tmp/kf-watch-thumb-$(echo "$FULL_URL" | md5 | cut -c1-8).jpg"
+curl -sL "$COVER_URL" -o "$THUMB_TMP"
 ```
-Then Read("/tmp/kf-watch-thumb-$VIDEO_ID.jpg") and describe it for `{{HOOK_ANALYSIS}}`.
+Then Read("$THUMB_TMP") and describe it for `{{HOOK_ANALYSIS}}`.
 
 ---
 
@@ -168,11 +226,12 @@ Replace ALL `{{PLACEHOLDER}}` values. Never leave any placeholder unfilled.
 | Placeholder | How to fill |
 |-------------|-------------|
 | `{{TITLE}}` | From yt-dlp metadata |
-| `{{VIDEO_ID}}` | Extracted in Step 1 |
-| `{{THUMBNAIL}}` | Best resolution filename (e.g. `maxresdefault.jpg`) |
+| `{{VIDEO_URL}}` | Full URL to the video (`$FULL_URL` from Step 1) |
+| `{{COVER_URL}}` | Full thumbnail URL (`$COVER_URL` from Step 1) |
+| `{{PLATFORM}}` | `youtube` / `loom` / `vimeo` / `other` — from Step 1 |
 | `{{DATE}}` | Today's date YYYY-MM-DD |
 | `{{VIDEO_DATE}}` | Upload date YYYY-MM-DD |
-| `{{CHANNEL}}` | From yt-dlp metadata |
+| `{{CHANNEL}}` | From yt-dlp metadata (channel or uploader) |
 | `{{DURATION}}` | Human format (e.g. `4:53`) |
 | `{{PRIORITY}}` | high / medium / low — assess based on relevance to current context |
 | `{{WATCH_MODE}}` | From Step 2 (visual or transcript-only + reason) |
@@ -181,7 +240,7 @@ Replace ALL `{{PLACEHOLDER}}` values. Never leave any placeholder unfilled.
 | `{{DESCRIPTION}}` | 2-3 sentences summarizing what the video covers and who it's for |
 | `{{HOOK_ANALYSIS}}` | What the thumbnail communicates visually + what happens in the first 10s of transcript. If frames available, describe specific frames. Always include: thumbnail visual description, opening words with timestamps, hook strategy (in-media-res / problem-first / story / etc.) |
 | `{{LEARNING_OBJECTIVES}}` | Bullet list: "- Understand X", "- Apply Y", "- Build Z" — things a learner can DO after watching |
-| `{{CURRICULUM}}` | Timestamped table with **clickable timestamp links**. For each row, convert `MM:SS` to total seconds and format as: `[MM:SS](https://www.youtube.com/watch?v={{VIDEO_ID}}&t=Xs)` where X is seconds (e.g. `[01:23]` → 83s → `[01:23](https://www.youtube.com/watch?v=VIDEO_ID&t=83s)`). Include: topic and what was shown/said. If frames available, mark visual-heavy moments with 👁️ |
+| `{{CURRICULUM}}` | Timestamped table with **clickable timestamp links**. For YouTube: `[MM:SS](https://www.youtube.com/watch?v=VIDEO_ID&t=Xs)` where X is total seconds. For other platforms: use deep-link format if supported (e.g. Vimeo `#t=Xs`), otherwise plain `[MM:SS]`. Include: topic and what was shown/said. If frames available, mark visual-heavy moments with 👁️ |
 | `{{VISUAL_OBSERVATIONS}}` | If visual mode: specific observations from reading frames — UI shown, diagrams, code on screen, motion patterns, b-roll choices. If transcript-only: `*Note: visual analysis unavailable — {{WATCH_MODE}}. Re-watch for visual details.*` |
 | `{{CORE_CONCEPTS}}` | 3-6 concepts with brief definitions. Format: `**Concept**: one-line explanation`. Include mental models, frameworks, and terms this video introduces or relies on |
 | `{{KEY_INSIGHTS}}` | 3-5 bullet points: the most important things to remember from this video |
