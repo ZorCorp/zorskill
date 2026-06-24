@@ -2,6 +2,11 @@
 
 All notable changes to kf-cli will be documented in this file.
 
+## [0.7.1] - 2026-06-24
+
+### Deprecated
+- **`/kf-cli:youtube-note`** is deprecated in favour of **`/kf-cli:watch`**, which handles YouTube *and* any other public/shareable video URL, auto-detects instructional vs meeting content, and adds visual frame analysis when `claude-watch` is available. `youtube-note` still works for backward compatibility and may be removed in a future release. Added a deprecation banner to the command and flagged it across `README.md`, `COMMANDS.md`, `commands/setup.md`, and the vault-skeleton routing note.
+
 ## [0.7.0] - 2026-06-24
 
 ### Added

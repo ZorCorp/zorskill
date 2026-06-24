@@ -10,7 +10,7 @@ All commands use the `/kf-cli:` prefix. Short commands (e.g., `/capture`) can be
 |---------|---------|-------|
 | `capture` | Smart router -- delegates to the right handler | Any content |
 | `watch` | Note from any video URL; auto-picks instructional vs meeting template | Any video URL (YouTube, Vimeo, Loom, Zoom recordings, …) or YouTube ID |
-| `youtube-note` | YouTube video note with transcript | YouTube URL or video ID |
+| `youtube-note` | _Deprecated — use `watch`_. YouTube-only transcript note | YouTube URL or video ID |
 | `idea` | Quick idea capture | Plain text |
 | `gitingest` | GitHub repository analysis digest | GitHub URL |
 | `study-guide` | Comprehensive study guide | URL, file path, or text |
@@ -61,9 +61,14 @@ Smart router that analyzes input and delegates to the appropriate handler.
 
 ---
 
-### 2. `/kf-cli:youtube-note`
+### 2. `/kf-cli:youtube-note` _(deprecated)_
 
-Fetches a YouTube video transcript and metadata, then creates a structured video note with timestamps, curriculum, and AI-powered tags. For visual learning-focused notes, use `/kf-cli:watch` instead.
+> **Deprecated — use `/kf-cli:watch`.** `/watch` handles YouTube and any other public/shareable
+> video URL, auto-detects instructional vs meeting content, and adds visual frame analysis when
+> available. `youtube-note` is kept only for backward compatibility and may be removed in a future
+> release.
+
+Fetches a YouTube video transcript and metadata, then creates a structured video note with timestamps, curriculum, and AI-powered tags.
 
 **Syntax**
 

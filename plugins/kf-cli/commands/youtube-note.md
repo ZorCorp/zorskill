@@ -1,5 +1,5 @@
 ---
-description: Fetch YouTube video transcript and create comprehensive material entry with AI-powered smart tagging
+description: "[DEPRECATED — use /kf-cli:watch] Fetch YouTube video transcript and create a video note with AI-powered smart tagging"
 argument-hint: [youtube-url-or-video-id] (YouTube URL or video ID to process)
 allowed-tools:
   - Bash(*)
@@ -7,6 +7,13 @@ allowed-tools:
   - Write(*)
   - Read(*)
 ---
+
+> [!WARNING] Deprecated — use `/kf-cli:watch`
+> `/kf-cli:watch` supersedes this command. It handles YouTube **and** any other public/shareable
+> video URL (Vimeo, Loom, Zoom recordings, etc.), auto-detects instructional vs meeting content,
+> adds visual frame analysis when `claude-watch` is available, and produces clickable timestamped
+> curricula. `/kf-cli:youtube-note` remains only for backward compatibility and may be removed in a
+> future release. **Prefer `/kf-cli:watch <youtube-url>`.**
 
 ## Task
 
