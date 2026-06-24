@@ -1,6 +1,6 @@
 ---
 name: kf-cli
-description: AI-powered knowledge pipeline for Obsidian. Captures any input — YouTube, Loom, Vimeo, and other public videos, web articles, GitHub repos, ideas — into structured, auto-tagged notes using purpose-built templates. Indexes captures into a wiki second brain that persists across sessions and context windows. Publishes notes to GitHub Pages and shares via URL. Commands: /capture (universal router), /watch (video notes for any yt-dlp-supported platform), /study-guide, /idea, /publish, /share. CLI-native — no Docker or MCP required.
+description: AI-powered knowledge pipeline for Obsidian. Captures any input — any public/shareable video URL (YouTube, Vimeo, Loom, Zoom cloud recordings, Twitch, TikTok, and ~1800 other yt-dlp-supported sites), web articles, GitHub repos, ideas — into structured, auto-tagged notes using purpose-built templates. /watch auto-detects instructional vs meeting content and picks the matching template. Indexes captures into a wiki second brain that persists across sessions and context windows. Publishes notes to GitHub Pages and shares via URL. Commands: /capture (universal router), /watch (notes for any video URL), /study-guide, /idea, /publish, /share. CLI-native — no Docker or MCP required.
 license: MIT
 allowed-tools:
   - Bash(*)
@@ -12,7 +12,7 @@ allowed-tools:
   - Task(*)
   - SlashCommand(*)
 metadata:
-  version: "0.6.1"
+  version: "0.7.0"
   repository: https://github.com/ZorCorp/kf-cli
   homepage: https://github.com/ZorCorp/kf-cli
 ---
@@ -106,9 +106,19 @@ The skill resolves the vault path at runtime in this order:
 
 Intelligently route content based on type and create properly tagged notes.
 
-#### Video Notes (YouTube, Loom, Vimeo, and more)
+#### Video Notes (any public/shareable video URL)
 
-Supports any public video platform that yt-dlp can reach — YouTube, Loom, Vimeo, TikTok, Twitch, X/Twitter, and others. Private videos requiring login are not supported.
+Supports **any** public/shareable video URL that yt-dlp can reach — YouTube, Vimeo, Loom, Zoom cloud
+recordings, TikTok, Twitch, X/Twitter, and ~1800 other sites. Videos that require a login session or
+an unshared passcode are not supported (yt-dlp can't reach them).
+
+`/watch` auto-detects the content type and picks the matching template:
+- **Instructional / creator video** (lecture, tutorial, talk, demo) → `watch-note-template.md`
+- **Meeting / call / recorded session** (Zoom, Meet, Teams recordings, standups, interviews) → `meeting-note-template.md`
+
+Meeting recordings default to **transcript-only** (the visual frame pipeline is skipped — meetings are
+large and frames of talking heads/screen shares add little). Instructional video uses `claude-watch`
+frames when available, transcript otherwise.
 
 **CLI Tools Used:**
 - **Metadata**: `yt-dlp --dump-json --no-download "$URL"` → extracts title, channel/uploader, duration, upload_date, thumbnail URL
