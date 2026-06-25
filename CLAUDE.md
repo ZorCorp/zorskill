@@ -70,8 +70,13 @@ git -C ~/Dev/zorcorp/kf-cli-sync commit -m "sync from zorskill vX.Y.Z"
 git -C ~/Dev/zorcorp/kf-cli-sync push  # default branch is 'master' on this repo
 ```
 `sync` copies the shared content (SKILL.md, README, COMMANDS, CHANGELOG, TROUBLESHOOTING, MIGRATION,
-install.sh, `commands/`, `templates/`, `scripts/`, `hooks/`). Each repo keeps its own `.claude-plugin/`
+`commands/`, `templates/`, `scripts/`, `hooks/`). Each repo keeps its own `.claude-plugin/`
 (canonical has `plugin.json` + `marketplace.json`; mirror has `marketplace.json` only) and `.git/`.
+
+**`install.sh` is MIRROR-OWNED — never synced.** It is the standalone repo's Agent-Skills installer
+(symlink/junction auto-link, `--no-link`/`--force-link`/`--uninstall`). The canonical copy under
+`plugins/kf-cli/install.sh` is vestigial and stale; Claude Code users install via the marketplace,
+not `install.sh`. If you ever improve the installer, do it in the **mirror** repo.
 
 **6. Refresh local installs** (optional): `~/.agents/skills/kf-cli/` and per-tool symlinks update via
 `npx skills update ZorCorp/kf-cli` or the standalone `install.sh --update`.

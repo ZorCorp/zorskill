@@ -112,7 +112,9 @@ cmd_sync() {
   echo
   echo "▸ Syncing shared content → $DST (version $cv)"
   # Shared content (each repo keeps its own .claude-plugin/ and .git/).
-  for item in SKILL.md README.md COMMANDS.md CHANGELOG.md TROUBLESHOOTING.md MIGRATION.md install.sh \
+  # NOTE: install.sh is MIRROR-OWNED — the standalone repo's Agent-Skills installer
+  # (symlink/junction auto-link) is the authoritative copy; never sync it FROM canonical.
+  for item in SKILL.md README.md COMMANDS.md CHANGELOG.md TROUBLESHOOTING.md MIGRATION.md \
               commands templates scripts hooks; do
     [[ -e "$KF/$item" ]] || continue
     if [[ -d "$KF/$item" ]]; then
