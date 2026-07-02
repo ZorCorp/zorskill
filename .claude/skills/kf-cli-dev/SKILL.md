@@ -63,4 +63,5 @@ Flags: `--no-push` (do everything locally, push manually) · `--no-refresh` (ski
 ## After a release
 
 - **Claude Code** picks up the new version after you run `/reload-plugins` (or `/plugin marketplace update zorskill`).
-- **Agents** (`~/.agents/skills/kf-cli`, Hermes, etc.) get it from the mirror via `install.sh --update` (the release step runs this for `~/.agents`; other agents/Hermes re-run their own installer).
+- **Agents** (`~/.agents/skills/kf-cli`, Hermes, etc.) get it from the mirror via **`install.sh --update`** (the release step runs this for `~/.agents`).
+  ⚠️ **Never use `npx skills` for kf-cli** — it installs only `SKILL.md` and strips `commands/`+`templates/`, breaking `/watch`. Use `install.sh`. For Hermes, copy the full `~/.agents/skills/kf-cli/` tree into its slot (its curator must preserve `commands/`).

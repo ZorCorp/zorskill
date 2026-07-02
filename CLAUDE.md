@@ -79,10 +79,12 @@ git -C ~/Dev/zorcorp/kf-cli-sync push  # default branch is 'master' on this repo
 `plugins/kf-cli/install.sh` is vestigial and stale; Claude Code users install via the marketplace,
 not `install.sh`. If you ever improve the installer, do it in the **mirror** repo.
 
-**6. Refresh local installs** — do NOT skip if any non-Claude agent uses kf-cli. `~/.agents/skills/kf-cli/`
-and per-tool symlinks update via `npx skills update ZorCorp/kf-cli` or the standalone `install.sh --update`.
-Skipping this is exactly why agents (Hermes, `~/.agents`) drift to a stale version and stop matching the
-canonical skill — the mirror can be current while the *installed* copy is months old.
+**6. Refresh local installs** — do NOT skip if any non-Claude agent uses kf-cli. Update via the
+standalone **`install.sh --update`** (it lays down the FULL skill tree + symlinks).
+⚠️ **Do NOT use `npx skills add/update` for kf-cli** — the `skills` CLI installs *only* `SKILL.md` and
+drops `commands/`+`templates/`, so `/watch` etc. break. (That is exactly how Hermes ended up stripped.)
+For Hermes specifically, copy the full `~/.agents/skills/kf-cli/` tree into its skill slot.
+Skipping this is why agents drift stale — the mirror can be current while the *installed* copy is months old.
 
 ### Gotchas learned the hard way
 - The canonical `marketplace.json` and `plugin.json` drifted to `0.5.13` while `SKILL.md`/`CHANGELOG`
