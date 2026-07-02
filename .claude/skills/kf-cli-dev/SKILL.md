@@ -46,7 +46,7 @@ That single command:
 2. Runs `check` — **aborts** if anything fails (version drift, invalid JSON, unquoted SKILL.md YAML, identity/model leak).
 3. Commits + pushes **canonical** (`main`).
 4. Syncs shared content → the **mirror** (find-or-clone), commits + pushes it (`master`).
-5. **Refreshes agents** (`install.sh --update` → `~/.agents/skills/kf-cli`) and prints a `/reload-plugins` reminder for Claude Code.
+5. **Refreshes agents** (`install.sh --update` → `~/.agents/skills/kf-cli`), then **removes the duplicate `~/.claude/skills/kf-cli` symlink** that install.sh auto-creates (Claude Code uses the marketplace plugin, not a skill), and prints a `/reload-plugins` reminder.
 
 Flags: `--no-push` (do everything locally, push manually) · `--no-refresh` (skip agent update).
 

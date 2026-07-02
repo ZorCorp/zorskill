@@ -211,6 +211,13 @@ refresh_agents() {
   if [[ -f "$mirror/install.sh" ]]; then
     echo "▸ Refreshing ~/.agents/skills/kf-cli via install.sh --update"
     bash "$mirror/install.sh" --update || yellow "  ⚠ agent refresh failed — run it manually"
+    # Claude Code consumes kf-cli via the zorskill marketplace PLUGIN, not a skill.
+    # install.sh auto-links every detected tool, so it recreates a duplicate
+    # ~/.claude/skills/kf-cli symlink that shadows the plugin — drop it (symlink only).
+    if [[ -L "$HOME/.claude/skills/kf-cli" ]]; then
+      rm -f "$HOME/.claude/skills/kf-cli"
+      echo "  ✓ removed duplicate ~/.claude/skills/kf-cli symlink (Claude Code uses the plugin)"
+    fi
   else
     yellow "  ⚠ mirror install.sh not found; refresh agents manually"
   fi
