@@ -22,7 +22,7 @@
     {
       "name": "kf-cli",
       "description": "KnowledgeFactory CLI — AI-powered capture-to-publish pipeline for Obsidian. Capture videos (YouTube, Loom, Vimeo), articles, repos, and ideas into structured notes. Auto-tag, wiki-index, and publish. No Docker or MCP required.",
-      "version": "0.5.13",
+      "version": "0.7.1",
       "author": {
         "name": "ZorCorp",
         "email": "info@zorcorp.dev"

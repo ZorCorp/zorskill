@@ -34,6 +34,7 @@ scripts/kf-cli-release.sh sync       # copy shared content canonical → mirror,
 - `plugins/kf-cli/.claude-plugin/marketplace.json` → `metadata.version`
 - `plugins/kf-cli/SKILL.md` → frontmatter `metadata.version`
 - `plugins/kf-cli/CHANGELOG.md` → new top entry `## [x.y.z] - YYYY-MM-DD`
+- **`.claude-plugin/marketplace.json` (repo ROOT)** → the `kf-cli` entry's `version` — ⚠️ this is the manifest Claude Code actually reads to list plugins, but **`check` does NOT audit it**. It silently drifted to `0.5.13` while everything else was `0.7.1`. Update it by hand every release until `check` covers it.
 
 Use semver: new command/template/capability → minor (`0.7.0`); fix/docs/deprecation → patch (`0.7.1`).
 
@@ -78,8 +79,10 @@ git -C ~/Dev/zorcorp/kf-cli-sync push  # default branch is 'master' on this repo
 `plugins/kf-cli/install.sh` is vestigial and stale; Claude Code users install via the marketplace,
 not `install.sh`. If you ever improve the installer, do it in the **mirror** repo.
 
-**6. Refresh local installs** (optional): `~/.agents/skills/kf-cli/` and per-tool symlinks update via
-`npx skills update ZorCorp/kf-cli` or the standalone `install.sh --update`.
+**6. Refresh local installs** — do NOT skip if any non-Claude agent uses kf-cli. `~/.agents/skills/kf-cli/`
+and per-tool symlinks update via `npx skills update ZorCorp/kf-cli` or the standalone `install.sh --update`.
+Skipping this is exactly why agents (Hermes, `~/.agents`) drift to a stale version and stop matching the
+canonical skill — the mirror can be current while the *installed* copy is months old.
 
 ### Gotchas learned the hard way
 - The canonical `marketplace.json` and `plugin.json` drifted to `0.5.13` while `SKILL.md`/`CHANGELOG`
