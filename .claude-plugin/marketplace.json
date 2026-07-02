@@ -22,7 +22,7 @@
     {
       "name": "kf-cli",
       "description": "KnowledgeFactory CLI — AI-powered capture-to-publish pipeline for Obsidian. Capture videos (YouTube, Loom, Vimeo), articles, repos, and ideas into structured notes. Auto-tag, wiki-index, and publish. No Docker or MCP required.",
-      "version": "0.7.1",
+      "version": "0.7.2",
       "author": {
         "name": "ZorCorp",
         "email": "info@zorcorp.dev"
@@ -43,7 +43,7 @@
     },
     {
       "name": "code-to-video",
-      "description": "Turn existing web source code into a shareable Google Drive demo video \u2014 analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
+      "description": "Turn existing web source code into a shareable Google Drive demo video — analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
       "version": "1.0.0",
       "author": {
         "name": "CYH928",
@@ -87,7 +87,7 @@
     },
     {
       "name": "yellow-restaurant",
-      "description": "Find nearby yellow restaurants (\u9ec3\u5e97\u98df\u8086) from the Yellow-Blue Map API using GPS coordinates.",
+      "description": "Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API using GPS coordinates.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
