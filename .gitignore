@@ -40,3 +40,7 @@ out/
 # Submodule plugin content is checked out via git submodule — do not commit local overrides
 plugins/*/node_modules/
 plugins/*/.env
+
+# local Claude Code settings — never ship in a plugin/release
+.claude/settings.local.json
+plugins/*/.claude/settings.local.json
