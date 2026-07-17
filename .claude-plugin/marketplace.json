@@ -95,6 +95,17 @@
       },
       "source": "./plugins/yellow-restaurant",
       "category": "productivity"
+    },
+    {
+      "name": "gcp-bq-mcp",
+      "description": "Query GCP monthly billing cost per billing account, broken down per project, from BigQuery billing export behind a private Cloud Run endpoint. Read-only, skill-only: the agent signs a Google ID token with gcloud and curls the endpoint — no MCP server, proxy, or binary. Needs only gcloud with run.invoker.",
+      "version": "1.0.0",
+      "author": {
+        "name": "ZorCorp",
+        "url": "https://github.com/ZorCorp/gcp-bq-mcp"
+      },
+      "source": "./plugins/gcp-bq-mcp",
+      "category": "productivity"
     }
   ]
 }

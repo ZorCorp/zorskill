@@ -19,3 +19,6 @@
 [submodule "plugins/openclaw-on-cf"]
 	path = plugins/openclaw-on-cf
 	url = https://github.com/ZorCorp/openclaw-on-cf.git
+[submodule "plugins/gcp-bq-mcp"]
+	path = plugins/gcp-bq-mcp
+	url = https://github.com/ZorCorp/gcp-bq-mcp.git
