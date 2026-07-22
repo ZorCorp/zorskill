@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -99,7 +99,7 @@
     {
       "name": "gcp-bq-mcp",
       "description": "Query GCP monthly billing cost per billing account, broken down per project, from BigQuery billing export behind a private Cloud Run endpoint. Read-only, skill-only: the agent signs a Google ID token with gcloud and curls the endpoint \u2014 no MCP server, proxy, or binary. Needs only gcloud with run.invoker.",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "author": {
         "name": "ZorCorp",
         "url": "https://github.com/ZorCorp/gcp-bq-mcp"
