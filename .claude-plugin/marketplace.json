@@ -21,7 +21,7 @@
     },
     {
       "name": "kf-cli",
-      "description": "KnowledgeFactory CLI — AI-powered capture-to-publish pipeline for Obsidian. Capture videos (YouTube, Loom, Vimeo), articles, repos, and ideas into structured notes. Auto-tag, wiki-index, and publish. No Docker or MCP required.",
+      "description": "KnowledgeFactory CLI \u2014 AI-powered capture-to-publish pipeline for Obsidian. Capture videos (YouTube, Loom, Vimeo), articles, repos, and ideas into structured notes. Auto-tag, wiki-index, and publish. No Docker or MCP required.",
       "version": "0.7.3",
       "author": {
         "name": "ZorCorp",
@@ -43,7 +43,7 @@
     },
     {
       "name": "code-to-video",
-      "description": "Turn existing web source code into a shareable Google Drive demo video — analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
+      "description": "Turn existing web source code into a shareable Google Drive demo video \u2014 analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
       "version": "1.0.0",
       "author": {
         "name": "CYH928",
@@ -65,7 +65,7 @@
     },
     {
       "name": "hermes-on-cf",
-      "description": "Deploy your own Hermes Agent — a stateful AI agent reachable from your own Telegram bot — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
+      "description": "Deploy your own Hermes Agent \u2014 a stateful AI agent reachable from your own Telegram bot \u2014 to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
@@ -76,7 +76,7 @@
     },
     {
       "name": "openclaw-on-cf",
-      "description": "Deploy your own OpenClaw bot — an AI agent with both a Telegram channel and a web dashboard — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
+      "description": "Deploy your own OpenClaw bot \u2014 an AI agent with both a Telegram channel and a web dashboard \u2014 to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
@@ -87,7 +87,7 @@
     },
     {
       "name": "yellow-restaurant",
-      "description": "Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API using GPS coordinates.",
+      "description": "Find nearby yellow restaurants (\u9ec3\u5e97\u98df\u8086) from the Yellow-Blue Map API using GPS coordinates.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
@@ -98,8 +98,8 @@
     },
     {
       "name": "gcp-bq-mcp",
-      "description": "Query GCP monthly billing cost per billing account, broken down per project, from BigQuery billing export behind a private Cloud Run endpoint. Read-only, skill-only: the agent signs a Google ID token with gcloud and curls the endpoint — no MCP server, proxy, or binary. Needs only gcloud with run.invoker.",
-      "version": "1.0.1",
+      "description": "Query GCP monthly billing cost per billing account, broken down per project, from BigQuery billing export behind a private Cloud Run endpoint. Read-only, skill-only: the agent signs a Google ID token with gcloud and curls the endpoint \u2014 no MCP server, proxy, or binary. Needs only gcloud with run.invoker.",
+      "version": "1.0.2",
       "author": {
         "name": "ZorCorp",
         "url": "https://github.com/ZorCorp/gcp-bq-mcp"
