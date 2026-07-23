@@ -26,3 +26,6 @@
 	path = plugins/kf-cli
 	url = https://github.com/ZorCorp/kf-cli.git
 	branch = master
+[submodule "plugins/zorskill-dev"]
+	path = plugins/zorskill-dev
+	url = https://github.com/ZorCorp/zorskill-dev.git
