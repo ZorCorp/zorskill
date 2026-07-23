@@ -22,3 +22,7 @@
 [submodule "plugins/gcp-bq-mcp"]
 	path = plugins/gcp-bq-mcp
 	url = https://github.com/ZorCorp/gcp-bq-mcp.git
+[submodule "plugins/kf-cli"]
+	path = plugins/kf-cli
+	url = https://github.com/ZorCorp/kf-cli.git
+	branch = master
