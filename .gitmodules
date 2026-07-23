@@ -1,6 +1,3 @@
-[submodule "plugins/kf-claude"]
-	path = plugins/kf-claude
-	url = https://github.com/ZorCorp/kf-claude.git
 [submodule "plugins/yellow-restaurant"]
 	path = plugins/yellow-restaurant
 	url = https://github.com/ZorCorp/yellow-restaurant.git

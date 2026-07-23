@@ -1,24 +1,13 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
     "email": "info@zorcorp.dev"
   },
   "plugins": [
-    {
-      "name": "kf-claude",
-      "description": "KnowledgeFactory for Claude Code - AI-powered knowledge capture, Obsidian integration, and publishing with MCP tools",
-      "version": "1.0.0",
-      "author": {
-        "name": "ZorCorp",
-        "email": "info@zorcorp.dev"
-      },
-      "source": "./plugins/kf-claude",
-      "category": "knowledge-management"
-    },
     {
       "name": "kf-cli",
       "description": "KnowledgeFactory CLI — AI-powered capture-to-publish pipeline for Obsidian. Capture videos (YouTube, Loom, Vimeo), articles, repos, and ideas into structured notes. Auto-tag, wiki-index, and publish. No Docker or MCP required.",
