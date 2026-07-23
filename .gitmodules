@@ -19,10 +19,10 @@
 [submodule "plugins/openclaw-on-cf"]
 	path = plugins/openclaw-on-cf
 	url = https://github.com/ZorCorp/openclaw-on-cf.git
-[submodule "plugins/gcp-bq-mcp"]
-	path = plugins/gcp-bq-mcp
-	url = https://github.com/ZorCorp/gcp-bq-mcp.git
 [submodule "plugins/kf-cli"]
 	path = plugins/kf-cli
 	url = https://github.com/ZorCorp/kf-cli.git
 	branch = master
+[submodule "plugins/gcp-bq"]
+	path = plugins/gcp-bq
+	url = https://github.com/ZorCorp/gcp-bq.git
