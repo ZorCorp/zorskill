@@ -8,7 +8,10 @@ name: Plugin drift detector
 
 on:
   schedule:
-    - cron: "0 19 * * *" # 19:00 UTC = 03:00 Asia/Hong_Kong
+    # Every 30 min so a plugin's own `Release` workflow (bump + tag in its repo)
+    # is carried into the marketplace within ~30-60 min, with no cross-repo token.
+    # GitHub schedules run late under load, so treat this as "within an hour", not exact.
+    - cron: "*/30 * * * *"
   workflow_dispatch: {}
 
 permissions:
