@@ -1,27 +1,32 @@
 # zorskill
 
-ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **OpenCode**, **Gemini CLI**, and any agent that follows the `~/.agents/skills/` convention.
+ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **OpenCode**, **Antigravity CLI**, and any agent that follows the `~/.agents/skills/` convention.
 
 ## Skills
 
+<!-- BEGIN SKILLS (managed by zorskill-dev) -->
 | Skill | Description | Source |
 |-------|-------------|--------|
-| `cx-trip-pa` | Search and book flights on Trip.com with agent-browser via `/flight` | [ZorCorp/cx-trip-pa](https://github.com/ZorCorp/cx-trip-pa) |
-| `kf-cli` | Obsidian knowledge management — capture, tag, publish | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
-| `kf-claude` | KnowledgeFactory (MCP/Docker version, legacy) | [ZorCorp/kf-claude](https://github.com/ZorCorp/kf-claude) |
-| `code-to-video` | Turn web source code into a shareable demo video via Stitch + Remotion + Google Drive | [ZorCorp/code-to-video](https://github.com/ZorCorp/code-to-video) |
-| `hermes-on-cf` | Deploy your own Hermes Agent (Telegram bot) on Cloudflare — self-service Worker + Container + R2 + AI Gateway | [ZorCorp/hermes-on-cf](https://github.com/ZorCorp/hermes-on-cf) |
-| `openclaw-on-cf` | Deploy your own OpenClaw bot (Telegram + web dashboard) on Cloudflare — self-service Worker + Container + R2 + AI Gateway | [ZorCorp/openclaw-on-cf](https://github.com/ZorCorp/openclaw-on-cf) |
-| `prototyper` | Convert source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, simulated cursor, and animations — includes a built-in HKUST Store Virtual Try-On demo | [ZorCorp/prototyper](https://github.com/ZorCorp/prototyper) |
-| `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
+| `kf-cli` | AI knowledge pipeline for Obsidian — capture any video URL, article, GitHub repo, or idea into auto-tagged notes, index them into a searchable wiki, and publish to GitHub Pages. CLI-native (no Docker or MCP). | [ZorCorp/kf-cli](https://github.com/ZorCorp/kf-cli) |
+| `cx-trip-pa` | Search and book flights on Trip.com through a real browser (agent-browser), driven by the `/flight` command. | [ZorCorp/cx-trip-pa](https://github.com/ZorCorp/cx-trip-pa) |
+| `code-to-video` | Turn existing web source code into a shareable demo video — analyzes the code, generates Stitch UI screens, renders a Remotion MP4, and uploads it to Google Drive. | [ZorCorp/code-to-video](https://github.com/ZorCorp/code-to-video) |
+| `prototyper` | Convert a product's source code or Stitch UI designs into a standalone interactive HTML demo with auto-play, a simulated cursor, and animations. | [ZorCorp/prototyper](https://github.com/ZorCorp/prototyper) |
+| `hermes-on-cf` | Deploy your own Hermes Agent — a stateful AI agent reachable from your own Telegram bot — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service. | [ZorCorp/hermes-on-cf](https://github.com/ZorCorp/hermes-on-cf) |
+| `openclaw-on-cf` | Deploy your own OpenClaw bot — an AI agent with a Telegram channel and a web dashboard — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service. | [ZorCorp/openclaw-on-cf](https://github.com/ZorCorp/openclaw-on-cf) |
+| `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API using your GPS coordinates. | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
+| `gcp-bq` | Query GCP billing cost — per billing account, project, service, or SKU — from a read-only BigQuery export behind a private Cloud Run endpoint. No MCP, proxy, or binary; just `gcloud` + `curl`. | [ZorCorp/gcp-bq](https://github.com/ZorCorp/gcp-bq) |
+| `zorskill-dev` | Maintainer tooling for this marketplace — audit version drift, release a plugin (advance its submodule pointer + sync the marketplace and this README), and scaffold new plugins. | [ZorCorp/zorskill-dev](https://github.com/ZorCorp/zorskill-dev) |
+<!-- END SKILLS -->
 
 ---
 
 ## Install
 
+**Claude Code** users: use **Option C** (the plugin marketplace) — one command adds the whole collection and you get auto-update notifications. **Every other agent** (Codex, Cursor, Copilot, OpenClaw, OpenCode, Antigravity CLI, or anything that reads `~/.agents/skills/`): use **Option A** (`npx skills`, per-skill), **Option B** (`gh skill`), or **Option D** (npm, all skills at once). Options A/B/D install to the shared `~/.agents/skills/` location and symlink into each detected agent.
+
 ### Option A — `npx skills add` (recommended)
 
-Installs any individual skill to `~/.agents/skills/` and auto-symlinks into every detected AI tool on your machine (Claude Code, Codex, Gemini CLI, Cursor, Copilot).
+Installs any individual skill to `~/.agents/skills/` and auto-symlinks into every detected AI tool on your machine (Claude Code, Codex, Antigravity CLI, Cursor, Copilot).
 
 ```bash
 npx skills add ZorCorp/kf-cli
@@ -56,13 +61,14 @@ Best for Claude Code users — auto-update notifications included.
 ```
 /plugin marketplace add ZorCorp/zorskill
 /plugin install kf-cli
-/plugin install kf-claude
 /plugin install cx-trip-pa
 /plugin install code-to-video
+/plugin install prototyper
 /plugin install hermes-on-cf
 /plugin install openclaw-on-cf
 /plugin install yellow-restaurant
-/plugin install prototyper
+/plugin install gcp-bq
+/plugin install zorskill-dev
 ```
 
 Update:
@@ -73,7 +79,7 @@ Update:
 
 ### Option D — npm (All Agents)
 
-Installs all skills to `~/.agents/skills/` and auto-symlinks into every agent detected on your machine (Claude Code, OpenClaw, OpenCode, Gemini CLI).
+Installs all skills to `~/.agents/skills/` and auto-symlinks into every agent detected on your machine (Claude Code, OpenClaw, OpenCode, Antigravity CLI).
 
 **Install all skills:**
 
@@ -116,7 +122,7 @@ Restart OpenClaw after install — skills are loaded on agent startup.
 
 ```bash
 ls ~/.openclaw/skills/
-# kf-cli   kf-claude   cx-trip-pa   code-to-video   hermes-on-cf   openclaw-on-cf   yellow-restaurant   prototyper
+# kf-cli   cx-trip-pa   code-to-video   prototyper   hermes-on-cf   openclaw-on-cf   yellow-restaurant   gcp-bq   zorskill-dev
 ```
 
 **Tested commands:**
@@ -136,50 +142,55 @@ npm install -g @zorcorp/zorskills
          │
          └─ scripts/setup.js runs automatically
                   │
-                  ├─ ~/.agents/skills/cx-trip-pa          ← canonical location
-                  ├─ ~/.agents/skills/kf-cli
-                  ├─ ~/.agents/skills/kf-claude
+                  ├─ ~/.agents/skills/kf-cli               ← canonical location
+                  ├─ ~/.agents/skills/cx-trip-pa
                   ├─ ~/.agents/skills/code-to-video
+                  ├─ ~/.agents/skills/prototyper
                   ├─ ~/.agents/skills/hermes-on-cf
                   ├─ ~/.agents/skills/openclaw-on-cf
                   ├─ ~/.agents/skills/yellow-restaurant
-                  ├─ ~/.agents/skills/prototyper
+                  ├─ ~/.agents/skills/gcp-bq
+                  ├─ ~/.agents/skills/zorskill-dev
                   │
-                  ├─ ~/.claude/skills/cx-trip-pa        → ../../.agents/skills/cx-trip-pa
-                  ├─ ~/.claude/skills/kf-cli            → ../../.agents/skills/kf-cli
-                  ├─ ~/.claude/skills/kf-claude         → ../../.agents/skills/kf-claude
-                  ├─ ~/.claude/skills/code-to-video     → ../../.agents/skills/code-to-video
-                  ├─ ~/.claude/skills/hermes-on-cf      → ../../.agents/skills/hermes-on-cf
-                  ├─ ~/.claude/skills/openclaw-on-cf    → ../../.agents/skills/openclaw-on-cf
-                  ├─ ~/.claude/skills/yellow-restaurant → ../../.agents/skills/yellow-restaurant
-                  ├─ ~/.claude/skills/prototyper        → ../../.agents/skills/prototyper
+                  ├─ ~/.claude/skills/kf-cli               → ../../.agents/skills/kf-cli
+                  ├─ ~/.claude/skills/cx-trip-pa           → ../../.agents/skills/cx-trip-pa
+                  ├─ ~/.claude/skills/code-to-video        → ../../.agents/skills/code-to-video
+                  ├─ ~/.claude/skills/prototyper           → ../../.agents/skills/prototyper
+                  ├─ ~/.claude/skills/hermes-on-cf         → ../../.agents/skills/hermes-on-cf
+                  ├─ ~/.claude/skills/openclaw-on-cf       → ../../.agents/skills/openclaw-on-cf
+                  ├─ ~/.claude/skills/yellow-restaurant    → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.claude/skills/gcp-bq               → ../../.agents/skills/gcp-bq
+                  └─ ~/.claude/skills/zorskill-dev         → ../../.agents/skills/zorskill-dev
                   │
-                  ├─ ~/.openclaw/skills/cx-trip-pa        → ../../.agents/skills/cx-trip-pa
-                  ├─ ~/.openclaw/skills/kf-cli            → ../../.agents/skills/kf-cli
-                  ├─ ~/.openclaw/skills/kf-claude         → ../../.agents/skills/kf-claude
-                  ├─ ~/.openclaw/skills/code-to-video     → ../../.agents/skills/code-to-video
-                  ├─ ~/.openclaw/skills/hermes-on-cf      → ../../.agents/skills/hermes-on-cf
-                  ├─ ~/.openclaw/skills/openclaw-on-cf    → ../../.agents/skills/openclaw-on-cf
-                  ├─ ~/.openclaw/skills/yellow-restaurant → ../../.agents/skills/yellow-restaurant
-                  ├─ ~/.openclaw/skills/prototyper        → ../../.agents/skills/prototyper
+                  ├─ ~/.openclaw/skills/kf-cli               → ../../.agents/skills/kf-cli
+                  ├─ ~/.openclaw/skills/cx-trip-pa           → ../../.agents/skills/cx-trip-pa
+                  ├─ ~/.openclaw/skills/code-to-video        → ../../.agents/skills/code-to-video
+                  ├─ ~/.openclaw/skills/prototyper           → ../../.agents/skills/prototyper
+                  ├─ ~/.openclaw/skills/hermes-on-cf         → ../../.agents/skills/hermes-on-cf
+                  ├─ ~/.openclaw/skills/openclaw-on-cf       → ../../.agents/skills/openclaw-on-cf
+                  ├─ ~/.openclaw/skills/yellow-restaurant    → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.openclaw/skills/gcp-bq               → ../../.agents/skills/gcp-bq
+                  └─ ~/.openclaw/skills/zorskill-dev         → ../../.agents/skills/zorskill-dev
                   │
-                  ├─ ~/.opencode/skills/cx-trip-pa        → ../../.agents/skills/cx-trip-pa
-                  ├─ ~/.opencode/skills/kf-cli            → ../../.agents/skills/kf-cli
-                  ├─ ~/.opencode/skills/kf-claude         → ../../.agents/skills/kf-claude
-                  ├─ ~/.opencode/skills/code-to-video     → ../../.agents/skills/code-to-video
-                  ├─ ~/.opencode/skills/hermes-on-cf      → ../../.agents/skills/hermes-on-cf
-                  ├─ ~/.opencode/skills/openclaw-on-cf    → ../../.agents/skills/openclaw-on-cf
-                  ├─ ~/.opencode/skills/yellow-restaurant → ../../.agents/skills/yellow-restaurant
-                  ├─ ~/.opencode/skills/prototyper        → ../../.agents/skills/prototyper
+                  ├─ ~/.opencode/skills/kf-cli               → ../../.agents/skills/kf-cli
+                  ├─ ~/.opencode/skills/cx-trip-pa           → ../../.agents/skills/cx-trip-pa
+                  ├─ ~/.opencode/skills/code-to-video        → ../../.agents/skills/code-to-video
+                  ├─ ~/.opencode/skills/prototyper           → ../../.agents/skills/prototyper
+                  ├─ ~/.opencode/skills/hermes-on-cf         → ../../.agents/skills/hermes-on-cf
+                  ├─ ~/.opencode/skills/openclaw-on-cf       → ../../.agents/skills/openclaw-on-cf
+                  ├─ ~/.opencode/skills/yellow-restaurant    → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.opencode/skills/gcp-bq               → ../../.agents/skills/gcp-bq
+                  └─ ~/.opencode/skills/zorskill-dev         → ../../.agents/skills/zorskill-dev
                   │
-                  ├─ ~/.gemini/extensions/cx-trip-pa        → ../../.agents/skills/cx-trip-pa
-                  ├─ ~/.gemini/extensions/kf-cli            → ../../.agents/skills/kf-cli
-                  ├─ ~/.gemini/extensions/kf-claude         → ../../.agents/skills/kf-claude
-                  ├─ ~/.gemini/extensions/code-to-video     → ../../.agents/skills/code-to-video
-                  ├─ ~/.gemini/extensions/hermes-on-cf      → ../../.agents/skills/hermes-on-cf
-                  ├─ ~/.gemini/extensions/openclaw-on-cf    → ../../.agents/skills/openclaw-on-cf
-                  ├─ ~/.gemini/extensions/yellow-restaurant → ../../.agents/skills/yellow-restaurant
-                  └─ ~/.gemini/extensions/prototyper        → ../../.agents/skills/prototyper
+                  ├─ ~/.gemini/extensions/kf-cli               → ../../.agents/skills/kf-cli
+                  ├─ ~/.gemini/extensions/cx-trip-pa           → ../../.agents/skills/cx-trip-pa
+                  ├─ ~/.gemini/extensions/code-to-video        → ../../.agents/skills/code-to-video
+                  ├─ ~/.gemini/extensions/prototyper           → ../../.agents/skills/prototyper
+                  ├─ ~/.gemini/extensions/hermes-on-cf         → ../../.agents/skills/hermes-on-cf
+                  ├─ ~/.gemini/extensions/openclaw-on-cf       → ../../.agents/skills/openclaw-on-cf
+                  ├─ ~/.gemini/extensions/yellow-restaurant    → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.gemini/extensions/gcp-bq               → ../../.agents/skills/gcp-bq
+                  └─ ~/.gemini/extensions/zorskill-dev         → ../../.agents/skills/zorskill-dev
 ```
 
 `~/.agents/skills/` is the single source of truth. Each agent gets a symlink — no duplicated files, single update point.
@@ -413,14 +424,15 @@ zorskill/
 ├── scripts/
 │   └── setup.js                 # post-install symlink creator
 ├── plugins/
-│   ├── cx-trip-pa/             # submodule → ZorCorp/cx-trip-pa
 │   ├── kf-cli/                 # submodule → ZorCorp/kf-cli
-│   ├── kf-claude/              # submodule → ZorCorp/kf-claude (legacy)
+│   ├── cx-trip-pa/             # submodule → ZorCorp/cx-trip-pa
 │   ├── code-to-video/          # submodule → ZorCorp/code-to-video
+│   ├── prototyper/             # submodule → ZorCorp/prototyper
 │   ├── hermes-on-cf/           # submodule → ZorCorp/hermes-on-cf
 │   ├── openclaw-on-cf/         # submodule → ZorCorp/openclaw-on-cf
 │   ├── yellow-restaurant/      # submodule → ZorCorp/yellow-restaurant
-│   └── prototyper/             # submodule → ZorCorp/prototyper
+│   ├── gcp-bq/                 # submodule → ZorCorp/gcp-bq
+│   └── zorskill-dev/           # submodule → ZorCorp/zorskill-dev (marketplace maintainer tooling)
 └── README.md
 ```
 
