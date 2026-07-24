@@ -17,13 +17,16 @@ const AGENTS_SKILLS = path.join(HOME, '.agents', 'skills');
 const PLUGINS_DIR = path.join(__dirname, '..', 'plugins');
 
 // Agent skill directories to symlink into (only if agent root exists).
-// Key = agent name (used to check ~/.{agentName} root exists).
-// Value = the skills/extensions directory to symlink into.
+// Key   = display name for logs.
+// root  = the ~/.{root} directory whose presence detects the agent.
+// dir   = the skills directory to symlink into.
 const AGENT_DIRS = {
-  'claude':   path.join(HOME, '.claude',   'skills'),
-  'openclaw': path.join(HOME, '.openclaw', 'skills'),
-  'opencode': path.join(HOME, '.opencode', 'skills'),
-  'gemini':   path.join(HOME, '.gemini',   'extensions'),
+  'claude':      { root: '.claude',   dir: path.join(HOME, '.claude',   'skills') },
+  'openclaw':    { root: '.openclaw', dir: path.join(HOME, '.openclaw', 'skills') },
+  'opencode':    { root: '.opencode', dir: path.join(HOME, '.opencode', 'skills') },
+  // Antigravity (incl. Antigravity CLI/IDE) reads global Agent Skills from
+  // ~/.gemini/config/skills/ — its root directory is ~/.gemini.
+  'antigravity': { root: '.gemini',   dir: path.join(HOME, '.gemini', 'config', 'skills') },
 };
 
 function ensureDir(dir) {
@@ -84,8 +87,8 @@ for (const plugin of plugins) {
   }
 
   // 2. Symlink into each detected agent using relative paths
-  for (const [agentName, agentSkillsDir] of Object.entries(AGENT_DIRS)) {
-    const agentRoot = path.join(HOME, `.${agentName}`);
+  for (const [agentName, { root, dir: agentSkillsDir }] of Object.entries(AGENT_DIRS)) {
+    const agentRoot = path.join(HOME, root);
     if (!fs.existsSync(agentRoot)) continue;
 
     ensureDir(agentSkillsDir);
@@ -104,4 +107,4 @@ console.log('\nzorskills setup complete.');
 console.log('Claude Code: invoke skills as /skill-name');
 console.log('OpenClaw:    restart agent to pick up new skills');
 console.log('OpenCode:    skills available in ~/.opencode/skills/');
-console.log('Gemini CLI:  extensions available in ~/.gemini/extensions/\n');
+console.log('Antigravity: skills available in ~/.gemini/config/skills/\n');

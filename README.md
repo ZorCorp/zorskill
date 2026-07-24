@@ -182,15 +182,15 @@ npm install -g @zorcorp/zorskills
                   ├─ ~/.opencode/skills/gcp-bq               → ../../.agents/skills/gcp-bq
                   └─ ~/.opencode/skills/zorskill-dev         → ../../.agents/skills/zorskill-dev
                   │
-                  ├─ ~/.gemini/extensions/kf-cli               → ../../.agents/skills/kf-cli
-                  ├─ ~/.gemini/extensions/cx-trip-pa           → ../../.agents/skills/cx-trip-pa
-                  ├─ ~/.gemini/extensions/code-to-video        → ../../.agents/skills/code-to-video
-                  ├─ ~/.gemini/extensions/prototyper           → ../../.agents/skills/prototyper
-                  ├─ ~/.gemini/extensions/hermes-on-cf         → ../../.agents/skills/hermes-on-cf
-                  ├─ ~/.gemini/extensions/openclaw-on-cf       → ../../.agents/skills/openclaw-on-cf
-                  ├─ ~/.gemini/extensions/yellow-restaurant    → ../../.agents/skills/yellow-restaurant
-                  ├─ ~/.gemini/extensions/gcp-bq               → ../../.agents/skills/gcp-bq
-                  └─ ~/.gemini/extensions/zorskill-dev         → ../../.agents/skills/zorskill-dev
+                  ├─ ~/.gemini/config/skills/kf-cli               → ../../.agents/skills/kf-cli
+                  ├─ ~/.gemini/config/skills/cx-trip-pa           → ../../.agents/skills/cx-trip-pa
+                  ├─ ~/.gemini/config/skills/code-to-video        → ../../.agents/skills/code-to-video
+                  ├─ ~/.gemini/config/skills/prototyper           → ../../.agents/skills/prototyper
+                  ├─ ~/.gemini/config/skills/hermes-on-cf         → ../../.agents/skills/hermes-on-cf
+                  ├─ ~/.gemini/config/skills/openclaw-on-cf       → ../../.agents/skills/openclaw-on-cf
+                  ├─ ~/.gemini/config/skills/yellow-restaurant    → ../../.agents/skills/yellow-restaurant
+                  ├─ ~/.gemini/config/skills/gcp-bq               → ../../.agents/skills/gcp-bq
+                  └─ ~/.gemini/config/skills/zorskill-dev         → ../../.agents/skills/zorskill-dev
 ```
 
 `~/.agents/skills/` is the single source of truth. Each agent gets a symlink — no duplicated files, single update point.
@@ -339,7 +339,7 @@ Update **every** section of the README that lists skills. Do not add only one en
 | **Skills table** | Add a new row: skill name, description, link to `ZorCorp/my-skill` |
 | **Option A install** | Add `/plugin install my-skill` |
 | **OpenClaw verify** | Add `my-skill` to the `ls ~/.openclaw/skills/` comment |
-| **How It Works diagram** | Add `~/.agents/skills/my-skill`, `~/.claude/skills/my-skill`, `~/.openclaw/skills/my-skill`, `~/.opencode/skills/my-skill`, `~/.gemini/extensions/my-skill` |
+| **How It Works diagram** | Add `~/.agents/skills/my-skill`, `~/.claude/skills/my-skill`, `~/.openclaw/skills/my-skill`, `~/.opencode/skills/my-skill`, `~/.gemini/config/skills/my-skill` |
 | **Structure diagram** | Add `│   └── my-skill/  # submodule → ZorCorp/my-skill` |
 
 ---
