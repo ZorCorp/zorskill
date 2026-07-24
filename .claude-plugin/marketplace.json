@@ -88,7 +88,7 @@
     {
       "name": "gcp-bq",
       "description": "Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for a single month or a month range. Read-only, skill-only: the agent signs a Google ID token with gcloud and curls a private Cloud Run endpoint (no MCP server, proxy, or binary). Needs only gcloud with run.invoker.",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": {
         "name": "ZorCorp",
         "url": "https://github.com/ZorCorp/gcp-bq"
