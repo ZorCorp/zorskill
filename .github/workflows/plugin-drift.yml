@@ -1,0 +1,42 @@
+name: Plugin drift detector
+
+# Catches a plugin whose OWN repo shipped a new version that was never carried
+# into this marketplace (a teammate releasing without running zorskill-dev).
+# Daily, it advances any such pointer + bumps the marketplace/README and, ONLY if
+# `check` passes, commits and pushes to main. A broken plugin's tip aborts — a
+# broken marketplace is never published.
+
+on:
+  schedule:
+    - cron: "0 19 * * *" # 19:00 UTC = 03:00 Asia/Hong_Kong
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: plugin-drift
+  cancel-in-progress: false
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Detect + carry in drifted plugins (check-gated, auto-push)
+        # zorskill-dev.sh drift --push:
+        #   • scans every plugin: marketplace entry version vs the repo tip's plugin.json version
+        #   • advances any that shipped a new version, syncs marketplace + README
+        #   • runs `check` as a HARD GATE — aborts/reverts if a tip is structurally broken
+        #   • commits and pushes main ONLY on a clean pass; no drift = no-op
+        run: bash plugins/zorskill-dev/scripts/zorskill-dev.sh drift --push
