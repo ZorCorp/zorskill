@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
