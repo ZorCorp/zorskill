@@ -50,30 +50,32 @@ jobs:
           SUBMODULE_READ_TOKEN: ${{ secrets.SUBMODULE_READ_TOKEN }}
         run: |
           set -euo pipefail
-          if [ -n "${SUBMODULE_READ_TOKEN}" ]; then
-            # Route ONLY submodule clone URLs through the read token — never the
-            # `origin` (zorskill) push, which keeps using the default GITHUB_TOKEN
-            # persisted by checkout above. So the read token can be least-privilege
-            # (Contents:read on the plugin repos), not a marketplace-write token.
-            while read -r _ url; do
-              base="${url%.git}"
-              path="${base#https://github.com/}"
-              git config --global url."https://x-access-token:${SUBMODULE_READ_TOKEN}@github.com/${path}".insteadOf "${base}"
-              git config --global url."https://x-access-token:${SUBMODULE_READ_TOKEN}@github.com/${path}.git".insteadOf "${base}.git"
-            done < <(git config --file .gitmodules --get-regexp '\.url$')
-            echo "submodule read token present — private plugin repos will be cloned"
-          else
-            echo "no SUBMODULE_READ_TOKEN — private/unreachable submodules will be skipped"
-          fi
-          # Init each submodule independently; tolerate any that stay unreachable so a
-          # single private repo (without a token) can't fail the whole run.
-          while read -r _ path; do
+          # Anon-first: init each submodule over anonymous https (public repos need no
+          # credential). Only a repo that FAILS falls back to the read token — so the
+          # token needs read access to just the PRIVATE repo(s) (e.g. gcp-bq), nothing
+          # more. The `origin` (zorskill) push is never rerouted; it keeps using the
+          # default GITHUB_TOKEN persisted by checkout above.
+          names="$(git config --file .gitmodules --get-regexp '\.path$' | sed -E 's/^submodule\.(.*)\.path .*/\1/')"
+          for name in ${names}; do
+            path="$(git config --file .gitmodules --get "submodule.${name}.path")"
+            url="$(git config --file .gitmodules --get "submodule.${name}.url")"
             if git submodule update --init "${path}" >/dev/null 2>&1; then
               echo "  ✓ init ${path}"
-            else
-              echo "  ⚠ skip ${path} (unreachable — private without a read token?)"
+              continue
             fi
-          done < <(git config --file .gitmodules --get-regexp '\.path$')
+            if [ -n "${SUBMODULE_READ_TOKEN:-}" ]; then
+              base="${url%.git}"; slug="${base#https://github.com/}"
+              git config --global url."https://x-access-token:${SUBMODULE_READ_TOKEN}@github.com/${slug}".insteadOf "${base}"
+              git config --global url."https://x-access-token:${SUBMODULE_READ_TOKEN}@github.com/${slug}.git".insteadOf "${base}.git"
+              if git submodule update --init "${path}" >/dev/null 2>&1; then
+                echo "  ✓ init ${path} (via read token)"
+              else
+                echo "  ⚠ skip ${path} (read token lacks access?)"
+              fi
+            else
+              echo "  ⚠ skip ${path} (private, no SUBMODULE_READ_TOKEN — carried in manually)"
+            fi
+          done
 
       - name: Configure git identity
         run: |
