@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -99,7 +99,7 @@
     {
       "name": "zorskill-dev",
       "description": "Maintainer tooling for the zorskill marketplace: keep every plugin's version in sync, advance submodule pointers, and scaffold new plugins. Aggregation-side only.",
-      "version": "0.7.1",
+      "version": "0.7.2",
       "author": {
         "name": "ZorCorp",
         "email": "info@zorcorp.dev"
