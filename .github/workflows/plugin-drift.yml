@@ -2,14 +2,21 @@ name: Plugin drift detector
 
 # Catches a plugin whose OWN repo shipped a new version that was never carried
 # into this marketplace (a teammate releasing without running zorskill-dev).
-# Daily, it advances any such pointer + bumps the marketplace/README and, ONLY if
-# `check` passes, commits and pushes to main. A broken plugin's tip aborts — a
-# broken marketplace is never published.
+# Every 30 min it advances any such pointer + bumps the marketplace/README and,
+# ONLY if `check` passes, commits and pushes to main. A broken plugin's tip aborts —
+# a broken marketplace is never published.
+#
+# PRIVATE plugin repos: the default GITHUB_TOKEN is scoped to THIS repo only, so it
+# cannot clone a private plugin submodule (e.g. gcp-bq). To include private repos,
+# add a read-only token as the `SUBMODULE_READ_TOKEN` secret (see "Init submodules"
+# below). Without it, any unreachable submodule is simply skipped — the run still
+# succeeds and the public plugins still carry in; skipped private plugins are carried
+# in manually via `/zorskill-dev:release <name> <x.y.z>`.
 
 on:
   schedule:
     # Every 30 min so a plugin's own `Release` workflow (bump + tag in its repo)
-    # is carried into the marketplace within ~30-60 min, with no cross-repo token.
+    # is carried into the marketplace within ~30-60 min.
     # GitHub schedules run late under load, so treat this as "within an hour", not exact.
     - cron: "*/30 * * * *"
   workflow_dispatch: {}
@@ -25,11 +32,48 @@ jobs:
   drift:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (with submodules)
+      # Check out the marketplace only. persist-credentials (default true) wires the
+      # default GITHUB_TOKEN for the `git push origin main` the drift step does — that
+      # write is to THIS repo, so the built-in token is enough. Submodules are inited
+      # separately below so one unreachable repo can't abort the whole checkout.
+      - name: Checkout marketplace
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
           fetch-depth: 0
+
+      - name: Init submodules (private repos included if a read token is set)
+        env:
+          # OPTIONAL. A read-only token (fine-grained PAT or GitHub App token) that can
+          # read PRIVATE plugin repos. Only needs Contents:read on those repos. If unset,
+          # private/unreachable submodules are skipped (public ones still init fine).
+          SUBMODULE_READ_TOKEN: ${{ secrets.SUBMODULE_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -n "${SUBMODULE_READ_TOKEN}" ]; then
+            # Route ONLY submodule clone URLs through the read token — never the
+            # `origin` (zorskill) push, which keeps using the default GITHUB_TOKEN
+            # persisted by checkout above. So the read token can be least-privilege
+            # (Contents:read on the plugin repos), not a marketplace-write token.
+            while read -r _ url; do
+              base="${url%.git}"
+              path="${base#https://github.com/}"
+              git config --global url."https://x-access-token:${SUBMODULE_READ_TOKEN}@github.com/${path}".insteadOf "${base}"
+              git config --global url."https://x-access-token:${SUBMODULE_READ_TOKEN}@github.com/${path}.git".insteadOf "${base}.git"
+            done < <(git config --file .gitmodules --get-regexp '\.url$')
+            echo "submodule read token present — private plugin repos will be cloned"
+          else
+            echo "no SUBMODULE_READ_TOKEN — private/unreachable submodules will be skipped"
+          fi
+          # Init each submodule independently; tolerate any that stay unreachable so a
+          # single private repo (without a token) can't fail the whole run.
+          while read -r _ path; do
+            if git submodule update --init "${path}" >/dev/null 2>&1; then
+              echo "  ✓ init ${path}"
+            else
+              echo "  ⚠ skip ${path} (unreachable — private without a read token?)"
+            fi
+          done < <(git config --file .gitmodules --get-regexp '\.path$')
 
       - name: Configure git identity
         run: |
@@ -38,7 +82,8 @@ jobs:
 
       - name: Detect + carry in drifted plugins (check-gated, auto-push)
         # zorskill-dev.sh drift --push:
-        #   • scans every plugin: marketplace entry version vs the repo tip's plugin.json version
+        #   • scans every INITIALIZED plugin: marketplace entry version vs the repo tip's
+        #     plugin.json version (unreachable/uninitialized submodules are skipped)
         #   • advances any that shipped a new version, syncs marketplace + README
         #   • runs `check` as a HARD GATE — aborts/reverts if a tip is structurally broken
         #   • commits and pushes main ONLY on a clean pass; no drift = no-op
