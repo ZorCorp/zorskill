@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.2.22",
+  "version": "1.2.23",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -105,8 +105,8 @@
         "url": "https://github.com/ZorCorp/gcp-bq"
       },
       "source": {
-        "source": "github",
-        "repo": "ZorCorp/gcp-bq"
+        "source": "url",
+        "url": "https://github.com/ZorCorp/gcp-bq.git"
       },
       "category": "productivity"
     },
@@ -119,8 +119,8 @@
         "url": "https://masterconcept.ai"
       },
       "source": {
-        "source": "github",
-        "repo": "ZorCorp/bms2"
+        "source": "url",
+        "url": "https://github.com/ZorCorp/bms2.git"
       },
       "category": "productivity"
     }
