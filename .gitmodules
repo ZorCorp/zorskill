@@ -26,3 +26,6 @@
 [submodule "plugins/zorskill-dev"]
 	path = plugins/zorskill-dev
 	url = https://github.com/ZorCorp/zorskill-dev.git
+[submodule "plugins/bms2"]
+	path = plugins/bms2
+	url = https://github.com/ZorCorp/bms2.git
