@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -86,17 +86,6 @@
       "category": "productivity"
     },
     {
-      "name": "gcp-bq",
-      "description": "Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for a single month or a month range. Read-only, skill-only: the agent signs a Google ID token with gcloud and curls a private Cloud Run endpoint (no MCP server, proxy, or binary). Needs only gcloud with run.invoker.",
-      "version": "2.1.0",
-      "author": {
-        "name": "ZorCorp",
-        "url": "https://github.com/ZorCorp/gcp-bq"
-      },
-      "source": "./plugins/gcp-bq",
-      "category": "productivity"
-    },
-    {
       "name": "zorskill-dev",
       "description": "Maintainer tooling for the zorskill marketplace: keep every plugin's version in sync, advance submodule pointers, and scaffold new plugins. Aggregation-side only.",
       "version": "0.7.2",
@@ -105,17 +94,6 @@
         "email": "info@zorcorp.dev"
       },
       "source": "./plugins/zorskill-dev",
-      "category": "productivity"
-    },
-    {
-      "name": "bms2",
-      "description": "Query the Master Concept BMS operational database (orders, invoices, gross profit, purchase orders / vendor spend, suppliers, companies, products, GCP/GMP billing cost, exchange rates, sales attribution, org chart) from its read-only BigQuery mirror mc-bms2.bms2_mysql8_bq — a near-real-time copy of the BMS2 MySQL 8 DB (~1.7 GB). Read-only, no VPN. Standalone.",
-      "version": "0.1.3",
-      "author": {
-        "name": "Master Concept",
-        "url": "https://masterconcept.ai"
-      },
-      "source": "./plugins/bms2",
       "category": "productivity"
     }
   ]
