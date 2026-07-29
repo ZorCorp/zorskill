@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.2.24",
+  "version": "1.2.25",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "kf-cli",
-      "description": "KnowledgeFactory CLI — AI-powered capture-to-publish pipeline for Obsidian. Capture videos (YouTube, Loom, Vimeo), articles, repos, and ideas into structured notes. Auto-tag, wiki-index, and publish. No Docker or MCP required.",
+      "description": "KnowledgeFactory CLI \u2014 AI-powered capture-to-publish pipeline for Obsidian. Capture videos (YouTube, Loom, Vimeo), articles, repos, and ideas into structured notes. Auto-tag, wiki-index, and publish. No Docker or MCP required.",
       "version": "0.8.4",
       "author": {
         "name": "ZorCorp",
@@ -32,7 +32,7 @@
     },
     {
       "name": "code-to-video",
-      "description": "Turn existing web source code into a shareable Google Drive demo video — analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
+      "description": "Turn existing web source code into a shareable Google Drive demo video \u2014 analyzes code, generates Stitch UI screens, renders a Remotion MP4, and uploads to Google Drive.",
       "version": "1.0.0",
       "author": {
         "name": "CYH928",
@@ -54,7 +54,7 @@
     },
     {
       "name": "hermes-on-cf",
-      "description": "Deploy your own Hermes Agent — a stateful AI agent reachable from your own Telegram bot — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
+      "description": "Deploy your own Hermes Agent \u2014 a stateful AI agent reachable from your own Telegram bot \u2014 to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
@@ -65,7 +65,7 @@
     },
     {
       "name": "openclaw-on-cf",
-      "description": "Deploy your own OpenClaw bot — an AI agent with both a Telegram channel and a web dashboard — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
+      "description": "Deploy your own OpenClaw bot \u2014 an AI agent with both a Telegram channel and a web dashboard \u2014 to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service: clone the kit, set your tokens in .env, run the deploy scripts.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
@@ -76,7 +76,7 @@
     },
     {
       "name": "yellow-restaurant",
-      "description": "Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API using GPS coordinates.",
+      "description": "Find nearby yellow restaurants (\u9ec3\u5e97\u98df\u8086) from the Yellow-Blue Map API using GPS coordinates.",
       "version": "1.0.0",
       "author": {
         "name": "ZorCorp",
@@ -98,7 +98,7 @@
     },
     {
       "name": "gcp-bq",
-      "description": "🔒 Private (ZorCorp members only) — Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for one month or a range. Read-only, skill-only: signs a Google ID token with gcloud and curls a private Cloud Run endpoint. Needs gcloud with run.invoker.",
+      "description": "\ud83d\udd12 Private (ZorCorp members only) \u2014 Query GCP cloud cost \u2014 price and cost by billing account, project, service, or SKU, for one month or a range. Read-only, skill-only: signs a Google ID token with gcloud and curls a private Cloud Run endpoint. Needs gcloud with run.invoker.",
       "version": "2.1.0",
       "author": {
         "name": "ZorCorp",
@@ -113,7 +113,7 @@
     {
       "name": "bms2",
       "description": "Query the Master Concept BMS operational database (orders, invoices, gross profit, POs, vendors, suppliers, products, billing cost, exchange rates, org chart) from its read-only BigQuery mirror. Read-only, no VPN.",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "author": {
         "name": "Master Concept",
         "url": "https://masterconcept.ai"
