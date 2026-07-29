@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.2.18",
+  "version": "1.2.19",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -98,7 +98,7 @@
     },
     {
       "name": "gcp-bq",
-      "description": "Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for one month or a range. Read-only, skill-only: signs a Google ID token with gcloud and curls a private Cloud Run endpoint. Needs gcloud with run.invoker.",
+      "description": "🔒 Private (ZorCorp members only) — Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for one month or a range. Read-only, skill-only: signs a Google ID token with gcloud and curls a private Cloud Run endpoint. Needs gcloud with run.invoker.",
       "version": "2.1.0",
       "author": {
         "name": "ZorCorp",
