@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zorskill",
-  "version": "1.2.26",
+  "version": "1.2.27",
   "description": "zorskill - AI-powered skill marketplace for Claude Code by ZorCorp",
   "owner": {
     "name": "ZorCorp",
@@ -113,7 +113,7 @@
     {
       "name": "bms2",
       "description": "Query the Master Concept BMS operational database (orders, invoices, gross profit, POs, vendors, suppliers, products, billing cost, exchange rates, org chart) from its read-only BigQuery mirror. Read-only, no VPN.",
-      "version": "0.2.2",
+      "version": "0.2.7",
       "author": {
         "name": "Master Concept",
         "url": "https://masterconcept.ai"
