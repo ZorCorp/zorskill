@@ -84,9 +84,18 @@ jobs:
 
       - name: Detect + carry in drifted plugins (check-gated, auto-push)
         # zorskill-dev.sh drift --push:
-        #   • scans every INITIALIZED plugin: marketplace entry version vs the repo tip's
-        #     plugin.json version (unreachable/uninitialized submodules are skipped)
+        #   • SUBMODULE plugins: marketplace entry version vs the initialized submodule's repo-tip
+        #     plugin.json (unreachable/uninitialized submodules are skipped)
+        #   • REMOTE (url/github) plugins: marketplace entry version vs the repo's default-branch tip,
+        #     read over the GitHub API with GH_TOKEN below (this is how bms2/gcp-bq carry in — they
+        #     have no submodule on disk). A private repo needs the read token; public ones resolve
+        #     on the built-in token. Unreachable/non-github → skipped.
         #   • advances any that shipped a new version, syncs marketplace + README
         #   • runs `check` as a HARD GATE — aborts/reverts if a tip is structurally broken
         #   • commits and pushes main ONLY on a clean pass; no drift = no-op
+        env:
+          # gh reads plugin.json from each remote plugin repo. SUBMODULE_READ_TOKEN (a read-only
+          # PAT/App token covering the ZorCorp org, incl. PRIVATE repos like gcp-bq) is preferred;
+          # the built-in GITHUB_TOKEN can still read PUBLIC remote repos (e.g. bms2) when it's unset.
+          GH_TOKEN: ${{ secrets.SUBMODULE_READ_TOKEN || github.token }}
         run: bash plugins/zorskill-dev/scripts/zorskill-dev.sh drift --push
