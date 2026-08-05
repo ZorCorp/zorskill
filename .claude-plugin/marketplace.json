@@ -123,8 +123,8 @@
       "description": "Query the Master Concept BMS operational database (orders, invoices, gross profit, POs, vendors, suppliers, products, billing cost, exchange rates, org chart) from its read-only BigQuery mirror. Read-only, no VPN.",
       "version": "0.3.0",
       "author": {
-        "name": "ZorCorp",
-        "url": "https://github.com/ZorCorp"
+        "name": "Master Concept",
+        "url": "https://masterconcept.ai"
       },
       "source": "./plugins/bms2",
       "category": "productivity"
