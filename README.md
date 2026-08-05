@@ -15,9 +15,9 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `openclaw-on-cf` | Deploy your own OpenClaw bot — an AI agent with a Telegram channel and a web dashboard — to your own Cloudflare account (Worker + Container + R2 + AI Gateway). Self-service. | [ZorCorp/openclaw-on-cf](https://github.com/ZorCorp/openclaw-on-cf) |
 | `yellow-restaurant` | Find nearby yellow restaurants (黃店食肆) from the Yellow-Blue Map API using your GPS coordinates. | [ZorCorp/yellow-restaurant](https://github.com/ZorCorp/yellow-restaurant) |
 | `zorskill-dev` | Maintainer tooling for this marketplace — audit version drift, release a plugin (advance its submodule pointer + sync the marketplace and this README), and scaffold new plugins. | [ZorCorp/zorskill-dev](https://github.com/ZorCorp/zorskill-dev) |
-| `gcp-bq` | 🔒 Private (ZorCorp members only) — Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for one month or a range. | [ZorCorp/gcp-bq](https://github.com/ZorCorp/gcp-bq) |
 | `bms2` | Query the Master Concept BMS operational database (orders, invoices, gross profit, POs, vendors, suppliers, products, billing cost, exchange rates, org chart) from its read-only BigQuery mirror. | [ZorCorp/bms2](https://github.com/ZorCorp/bms2) |
 | `fc-bms2` | Query the Finda Cloud (FC) BMS operational database — orders, invoices, AR, gross profit, purchase orders, vendors, customers, products, exchange rates, sales attribution and the org chart — from its read-only BigQuery mirror behind a private Cloud Run endpoint. | [ZorCorp/fc-bms2](https://github.com/ZorCorp/fc-bms2) |
+| `gcp-bq` | 🔒 Private (ZorCorp members only) — Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for one month or a range. | [ZorCorp/gcp-bq](https://github.com/ZorCorp/gcp-bq) |
 <!-- END SKILLS -->
 
 ---

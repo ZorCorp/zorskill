@@ -26,3 +26,6 @@
 [submodule "plugins/fc-bms2"]
 	path = plugins/fc-bms2
 	url = https://github.com/ZorCorp/fc-bms2.git
+[submodule "plugins/gcp-bq"]
+	path = plugins/gcp-bq
+	url = https://github.com/ZorCorp/gcp-bq.git
