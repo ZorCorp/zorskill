@@ -29,3 +29,6 @@
 [submodule "plugins/gcp-bq"]
 	path = plugins/gcp-bq
 	url = https://github.com/ZorCorp/gcp-bq.git
+[submodule "plugins/bms2"]
+	path = plugins/bms2
+	url = https://github.com/ZorCorp/bms2.git
