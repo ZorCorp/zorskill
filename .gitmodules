@@ -32,3 +32,6 @@
 [submodule "plugins/bms2"]
 	path = plugins/bms2
 	url = https://github.com/ZorCorp/bms2.git
+[submodule "plugins/mcai-webapp"]
+	path = plugins/mcai-webapp
+	url = https://github.com/ZorCorp/mcai-webapp.git

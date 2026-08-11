@@ -18,6 +18,7 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `fc-bms2` | Query the Finda Cloud (FC) BMS operational database — orders, invoices, AR, gross profit, purchase orders, vendors, customers, products, exchange rates, sales attribution and the org chart — from its read-only BigQuery mirror behind a private Cloud Run endpoint. | [ZorCorp/fc-bms2](https://github.com/ZorCorp/fc-bms2) |
 | `gcp-bq` | 🔒 Private (ZorCorp members only) — Query GCP cloud cost — price and cost by billing account, project, service, or SKU, for one month or a range. | [ZorCorp/gcp-bq](https://github.com/ZorCorp/gcp-bq) |
 | `bms2` | Query the Master Concept BMS operational database (orders, invoices, gross profit, POs, vendors, suppliers, products, billing cost, exchange rates, org chart) from its read-only BigQuery mirror. | [ZorCorp/bms2](https://github.com/ZorCorp/bms2) |
+| `mcai-webapp` | TODO one-line description of mcai-webapp | [ZorCorp/mcai-webapp](https://github.com/ZorCorp/mcai-webapp) |
 <!-- END SKILLS -->
 
 ---
