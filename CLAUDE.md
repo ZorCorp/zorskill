@@ -4,17 +4,25 @@ Plugin collection for the `ZorCorp` Claude Code marketplace. Each plugin lives u
 
 ---
 
-## Releasing a plugin (uniform submodule model)
+## Releasing a plugin (ref-pinned url sources — since marketplace 1.3.0)
 
-Every plugin under `plugins/<name>/` is a git submodule pointing at `ZorCorp/<name>`.
-The `zorskill-dev` plugin automates the aggregation-side release chore.
+Every `marketplace.json` entry is a remote source pinned to its release tag:
+`{"source":"url","url":"https://github.com/ZorCorp/<name>.git","ref":"v<version>"}` — users install
+the TAG over HTTPS, so nothing depends on submodules (`/plugin marketplace add` and claude.ai org
+sync never init them) or on SSH keys (the `{"source":"github"}` form clones over SSH — avoid it).
+Invariant, tool-enforced: `source.ref == "v" + version`. The `plugins/<name>/` submodules remain as
+maintainer scaffolding (local editing, audits) — consumers never touch them.
 
-1. Edit the plugin in `plugins/<name>/`; commit + push to `ZorCorp/<name>`, bumping its
-   `.claude-plugin/plugin.json` `.version`.
-2. `/zorskill-dev:release <name> <x.y.z>` — advances the submodule pointer, verifies the plugin
-   repo declares `<x.y.z>`, syncs the root `marketplace.json` (per-plugin entry + top-level aggregate
-   `.version`), runs `check`, and commits to zorskill.
+1. Edit the plugin in `plugins/<name>/`; commit + push to `ZorCorp/<name>`. Cut its release with the
+   plugin repo's own workflow: `gh workflow run release.yml -f version=<x.y.z>` (bumps
+   `.claude-plugin/plugin.json`, commits, tags `v<x.y.z>`).
+2. `/zorskill-dev:release <name> <x.y.z>` — verifies tag `v<x.y.z>` exists and declares `<x.y.z>`,
+   advances the entry's `version` + `source.ref` together (and the on-disk submodule checkout,
+   best-effort), syncs the aggregate `.version` + README, runs `check`, and commits to zorskill.
+   (Or just wait — the drift Action carries tagged releases in automatically within ~30 min.)
 3. Review, then `git push origin main`.
+4. `/zorskill-dev:mirror mcailab/zorskill-org` — copy the manifest to the PRIVATE org-sync companion
+   repo (claude.ai "Sync from GitHub" requires a private repo; the org marketplace syncs from there).
 
 Audit anytime with `/zorskill-dev:check`. Scaffold a new plugin with `/zorskill-dev:new <name>`.
 
