@@ -20,6 +20,7 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `bms2` | Query the Master Concept BMS operational database (orders, invoices, gross profit, POs, vendors, suppliers, products, billing cost, exchange rates, org chart) from its read-only BigQuery mirror. | [ZorCorp/bms2](https://github.com/ZorCorp/bms2) |
 | `mcai-webapp` | TODO one-line description of mcai-webapp | [ZorCorp/mcai-webapp](https://github.com/ZorCorp/mcai-webapp) |
 | `mc-cms` | Query Master Concept's Cloud MS reseller-management data — Google Cloud / Workspace billing accounts (status, master reseller, per customer), customers (org + domain), virtual customers and custom tiered SKU repricing, billing-account approvals, internal teams, and the CMS audit log — from its read-only BigQuery mirror behind a private Cloud Run endpoint. | [ZorCorp/mc-cms](https://github.com/ZorCorp/mc-cms) |
+| `genimage` | Generate and edit images from a text prompt with OpenAI's gpt-image-2, billed to your own ChatGPT subscription via the Codex CLI — no API key, no per-image charge. | [ZorCorp/genimage](https://github.com/ZorCorp/genimage) |
 <!-- END SKILLS -->
 
 ---

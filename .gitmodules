@@ -35,3 +35,6 @@
 [submodule "plugins/mcai-webapp"]
 	path = plugins/mcai-webapp
 	url = https://github.com/ZorCorp/mcai-webapp.git
+[submodule "plugins/genimage"]
+	path = plugins/genimage
+	url = https://github.com/ZorCorp/genimage.git
