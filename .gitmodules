@@ -38,3 +38,6 @@
 [submodule "plugins/genimage"]
 	path = plugins/genimage
 	url = https://github.com/ZorCorp/genimage.git
+[submodule "plugins/figma-to-wp"]
+	path = plugins/figma-to-wp
+	url = https://github.com/ZorCorp/figma-to-wp.git

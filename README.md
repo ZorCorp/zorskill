@@ -21,6 +21,7 @@ ZorCorp's AI skill collection — works with **Claude Code**, **OpenClaw**, **Op
 | `mcai-webapp` | TODO one-line description of mcai-webapp | [ZorCorp/mcai-webapp](https://github.com/ZorCorp/mcai-webapp) |
 | `mc-cms` | Query Master Concept's Cloud MS reseller-management data — Google Cloud / Workspace billing accounts (status, master reseller, per customer), customers (org + domain), virtual customers and custom tiered SKU repricing, billing-account approvals, internal teams, and the CMS audit log — from its read-only BigQuery mirror behind a private Cloud Run endpoint. | [ZorCorp/mc-cms](https://github.com/ZorCorp/mc-cms) |
 | `genimage` | Generate and edit images from a text prompt with OpenAI's gpt-image-2, billed to your own ChatGPT subscription via the Codex CLI — no API key, no per-image charge. | [ZorCorp/genimage](https://github.com/ZorCorp/genimage) |
+| `figma-to-wp` | Turn a Figma design into a page on masterconcept.ai. | [ZorCorp/figma-to-wp](https://github.com/ZorCorp/figma-to-wp) |
 <!-- END SKILLS -->
 
 ---
